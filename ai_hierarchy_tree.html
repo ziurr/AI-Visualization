@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Visualization</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+      body,
+      html {
+        margin: 20px;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+        font-family: "Segoe UI", Verdana, sans-serif;
+        transition: background-color 0.5s, color 0.5s;
+      }
+
+      /* Gradient Title */
+      #title {
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+        background: linear-gradient(90deg, #ff6ec4, #7873f5);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        height: 60px;
+      }
+
+      #tree-container {
+        width: 100%;
+        height: calc(100vh - 250px);
+      }
+
+      #info-box {
+        font-family: "Segoe UI", Verdana, sans-serif;
+        height: 100px;
+      }
+
+      /* Toggle Switch */
+      .toggle-container {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 30px;
+      }
+
+      .toggle-label {
+        margin-right: 10px;
+        font-size: 14px;
+      }
+
+      .toggle-switch {
+        width: 40px;
+        height: 20px;
+        background-color: #ccc;
+        border-radius: 20px;
+        position: relative;
+        transition: background-color 0.3s;
+      }
+
+      .toggle-switch::after {
+        content: "";
+        width: 18px;
+        height: 18px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 1px;
+        left: 2px;
+        transition: transform 0.3s;
+      }
+
+      .toggle-switch.active {
+        background-color: #333;
+      }
+
+      .toggle-switch.active::after {
+        transform: translateX(20px);
+      }
+
+      /* Dark Mode */
+      .dark-mode {
+        background-color: #1e1e1e;
+        color: #f5f5f5;
+      }
+
+      .dark-mode .link {
+        stroke: #999;
+      }
+
+      .dark-mode .node circle {
+        fill: #444;
+        stroke: #888;
+      }
+
+      .dark-mode .node text {
+        fill: #f5f5f5;
+      }
+
+      /* Light Mode */
+      .light-mode {
+        background-color: #ffffff;
+        color: #333333;
+      }
+
+      .light-mode .link {
+        stroke: #555;
+      }
+
+      .light-mode .node circle {
+        fill: #999;
+        stroke: #555;
+      }
+
+      .light-mode .node text {
+        fill: #333;
+      }
+
+      .node circle {
+        fill: #999;
+        stroke: #555;
+        stroke-width: 2px;
+      }
+
+      .node text {
+        font: 12px sans-serif;
+        fill: #333;
+      }
+
+      .link {
+        fill: none;
+        stroke: #555;
+        stroke-opacity: 0.4;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </head>
+  <body class="light-mode">
+    <!-- Gradient Title -->
+    <div id="title">AI Visualization</div>
+
+    <!-- Toggle for Dark Mode -->
+    <div class="toggle-container" id="toggle-container">
+      <span class="toggle-label">Light Mode</span>
+      <div class="toggle-switch" id="toggle-switch"></div>
+    </div>
+    <div id="tree-container"></div>
+    <div id="info-box" style="margin-top: 20px; font-family: Arial, sans-serif">
+      <h4>Color Code Legend</h4>
+      <div style="display: flex; align-items: center; margin-bottom: 5px">
+        <span
+          style="
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: green;
+            margin-right: 10px;
+          "
+        ></span>
+        <span
+          >Commonly Used: Widely adopted in research and industry; recommended
+          for learning and use.</span
+        >
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px">
+        <span
+          style="
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: yellow;
+            margin-right: 10px;
+          "
+        ></span>
+        <span
+          >Rarely Used: Still applicable in niche or specific contexts; may have
+          been replaced by newer methods.</span
+        >
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px">
+        <span
+          style="
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            margin-right: 10px;
+          "
+        ></span>
+        <span
+          >Outdated: Largely replaced by more advanced techniques; primarily of
+          historical interest.</span
+        >
+      </div>
+    </div>
+
+    <script>
+      /// Dark  Mode ///
+      const toggleSwitch = document.getElementById("toggle-switch");
+      const body = document.body;
+      const toggleLabel = document.querySelector(".toggle-label");
+      toggleSwitch.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        body.classList.toggle("light-mode");
+        toggleSwitch.classList.toggle("active");
+
+        // Update label text
+        toggleLabel.textContent = body.classList.contains("dark-mode")
+          ? "Dark Mode"
+          : "Light Mode";
+
+        // Re-apply styles to D3 visualization
+        update(root); // Re-run the update function to apply the new styles
+      });
+
+      /// Dynamic Resizing ///
+      // Adjust node size and text size based on available width and height
+      function updateNodeAndTextSizes() {
+        const minDimension = Math.min(width, height); // Find the smaller dimension to base scaling
+        const scaleFactor = minDimension / 1200; // Calculate scaling factor relative to a base width/height of 1200px
+
+        d3.selectAll("circle").attr("r", 8 * scaleFactor); // Scale node size based on the factor
+
+        d3.selectAll("text")
+          .style("font-size", `${16 * scaleFactor}px`)
+          .style("font-family", "Segoe UI, Verdana, sans-serif"); // Scale text size based on the factor
+      }
+
+      window.addEventListener("resize", () => {
+        // Update dimensions
+        width = window.innerWidth - margin.left - margin.right;
+        height = window.innerHeight - margin.top - margin.bottom;
+
+        // Update viewBox to adjust SVG scale
+        d3.select("svg").attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        );
+
+        // Update tree layout size
+        treeLayout.size([height, width - 400]);
+
+        // Re-apply the updated layout to the D3 visualization
+        update(root);
+        updateNodeAndTextSizes(); // Adjust sizes dynamically
+      });
+
+      // Data for the AI hierarchy
+      const aiHierarchy = {
+        name: "Artificial Intelligence (AI)",
+        children: [
+          {
+            name: "Machine Learning (ML)",
+            children: [
+              {
+                name: "Supervised Learning",
+                children: [
+                  {
+                    name: "Regression",
+                    children: [
+                      { name: "Linear Regression" },
+                      { name: "Polynomial Regression" },
+                      { name: "Support Vector Regression (SVR)" },
+                      { name: "Decision Trees for Regression" },
+                      { name: "Random Forest Regression" },
+                      { name: "Gradient Boosting Regression" },
+                      { name: "Neural Network Regression" },
+                    ],
+                  },
+                  {
+                    name: "Classification",
+                    children: [
+                      { name: "Logistic Regression" },
+                      { name: "K-Nearest Neighbors (KNN)" },
+                      { name: "Support Vector Machines (SVM)" },
+                      { name: "Decision Trees for Classification" },
+                      { name: "Random Forest Classification" },
+                      { name: "Gradient Boosting Classification" },
+                      { name: "Naive Bayes Classifiers" },
+                      { name: "Neural Networks for Classification" },
+                      { name: "Ensemble Methods" },
+                    ],
+                  },
+                ],
+              },
+              {
+                name: "Unsupervised Learning",
+                children: [
+                  {
+                    name: "Clustering",
+                    children: [
+                      { name: "K-Means Clustering" },
+                      { name: "Hierarchical Clustering" },
+                      { name: "DBSCAN" },
+                      { name: "Mean Shift Clustering" },
+                      { name: "Gaussian Mixture Models (GMM)" },
+                    ],
+                  },
+                  {
+                    name: "Dimensionality Reduction",
+                    children: [
+                      { name: "Principal Component Analysis (PCA)" },
+                      { name: "Independent Component Analysis (ICA)" },
+                      {
+                        name: "t-Distributed Stochastic Neighbor Embedding (t-SNE)",
+                      },
+                      {
+                        name: "Uniform Manifold Approximation and Projection (UMAP)",
+                      },
+                      { name: "Autoencoders" },
+                    ],
+                  },
+                  {
+                    name: "Anomaly Detection",
+                    children: [
+                      { name: "One-Class SVM" },
+                      { name: "Isolation Forest" },
+                      { name: "Local Outlier Factor (LOF)" },
+                    ],
+                  },
+                ],
+              },
+              {
+                name: "Semi-Supervised Learning",
+                children: [
+                  { name: "Self-Training Models" },
+                  { name: "Co-Training Methods" },
+                  { name: "Graph-Based Semi-Supervised Learning" },
+                ],
+              },
+              {
+                name: "Reinforcement Learning (RL)",
+                children: [
+                  {
+                    name: "Model-Free RL",
+                    children: [
+                      {
+                        name: "Value-Based Methods",
+                        children: [
+                          { name: "Q-Learning" },
+                          { name: "Deep Q-Networks (DQN)" },
+                          { name: "Double DQN" },
+                          { name: "Dueling DQN" },
+                          { name: "Rainbow DQN" },
+                        ],
+                      },
+                      {
+                        name: "Policy-Based Methods",
+                        children: [
+                          { name: "Policy Gradients" },
+                          { name: "REINFORCE Algorithm" },
+                          { name: "Actor-Critic Methods" },
+                          { name: "Advantage Actor-Critic (A2C)" },
+                          { name: "Asynchronous Advantage Actor-Critic (A3C)" },
+                          { name: "Proximal Policy Optimization (PPO)" },
+                          { name: "Deep Deterministic Policy Gradient (DDPG)" },
+                          { name: "Twin Delayed DDPG (TD3)" },
+                          { name: "Soft Actor-Critic (SAC)" },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    name: "Model-Based RL",
+                    children: [
+                      { name: "Dyna-Q" },
+                      { name: "Monte Carlo Tree Search (MCTS)" },
+                      { name: "World Models" },
+                    ],
+                  },
+                  { name: "Multi-Agent RL" },
+                  { name: "Hierarchical RL" },
+                  { name: "Inverse Reinforcement Learning (IRL)" },
+                ],
+              },
+              {
+                name: "Imitation Learning",
+                children: [
+                  { name: "Behavior Cloning" },
+                  { name: "Inverse Reinforcement Learning (IRL)" },
+                  { name: "Apprenticeship Learning" },
+                  { name: "Generative Adversarial Imitation Learning (GAIL)" },
+                  { name: "Dataset Aggregation (DAgger)" },
+                ],
+              },
+              {
+                name: "Deep Learning",
+                children: [
+                  {
+                    name: "Artificial Neural Networks (ANNs)",
+                    children: [
+                      {
+                        name: "Feedforward Neural Networks (FFNNs)",
+                        children: [{ name: "Multilayer Perceptrons (MLPs)" }],
+                      },
+                      {
+                        name: "Convolutional Neural Networks (CNNs)",
+                        children: [
+                          { name: "LeNet" },
+                          { name: "AlexNet" },
+                          { name: "VGGNet" },
+                          { name: "GoogLeNet (Inception Networks)" },
+                          { name: "ResNet (Residual Networks)" },
+                          { name: "DenseNet" },
+                          { name: "EfficientNet" },
+                          { name: "MobileNet" },
+                          { name: "NASNet" },
+                        ],
+                      },
+                      {
+                        name: "Recurrent Neural Networks (RNNs)",
+                        children: [
+                          { name: "Simple RNNs" },
+                          { name: "Long Short-Term Memory Networks (LSTMs)" },
+                          { name: "Gated Recurrent Units (GRUs)" },
+                          { name: "Bidirectional RNNs" },
+                        ],
+                      },
+                      {
+                        name: "Attention Mechanisms",
+                        children: [
+                          { name: "Additive Attention" },
+                          { name: "Multiplicative Attention" },
+                          { name: "Self-Attention" },
+                        ],
+                      },
+                      {
+                        name: "Transformers",
+                        children: [
+                          {
+                            name: "Natural Language Processing Transformers",
+                            children: [
+                              { name: "Original Transformer Architecture" },
+                              { name: "BERT" },
+                              { name: "GPT Series" },
+                              { name: "T5" },
+                              { name: "XLNet" },
+                              { name: "ELECTRA" },
+                            ],
+                          },
+                          {
+                            name: "Vision Transformers (ViT)",
+                            children: [
+                              { name: "ViT" },
+                              { name: "DeiT" },
+                              { name: "Swin Transformer" },
+                            ],
+                          },
+                          {
+                            name: "Multimodal Transformers",
+                            children: [
+                              { name: "VisualBERT" },
+                              { name: "LXMERT" },
+                              { name: "CLIP" },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        name: "Autoencoders",
+                        children: [
+                          { name: "Basic Autoencoders" },
+                          { name: "Denoising Autoencoders" },
+                          { name: "Variational Autoencoders (VAEs)" },
+                          { name: "Conditional VAEs (CVAEs)" },
+                        ],
+                      },
+                      {
+                        name: "Generative Adversarial Networks (GANs)",
+                        children: [
+                          { name: "Basic GANs" },
+                          { name: "Deep Convolutional GANs (DCGANs)" },
+                          { name: "Conditional GANs (cGANs)" },
+                          { name: "CycleGAN" },
+                          { name: "StyleGAN" },
+                          { name: "BigGAN" },
+                          { name: "Wasserstein GAN (WGAN)" },
+                        ],
+                      },
+                      {
+                        name: "Diffusion Models",
+                        children: [
+                          {
+                            name: "Denoising Diffusion Probabilistic Models (DDPMs)",
+                          },
+                          { name: "DALL·E 2" },
+                          { name: "Stable Diffusion" },
+                        ],
+                      },
+                      {
+                        name: "Graph Neural Networks (GNNs)",
+                        children: [
+                          { name: "Graph Convolutional Networks (GCNs)" },
+                          { name: "Graph Attention Networks (GATs)" },
+                          { name: "GraphSAGE" },
+                          { name: "Message Passing Neural Networks (MPNNs)" },
+                        ],
+                      },
+                      {
+                        name: "Self-Supervised Learning",
+                        children: [
+                          { name: "Contrastive Learning" },
+                          { name: "Masked Autoencoders" },
+                          { name: "Predictive Coding" },
+                        ],
+                      },
+                      {
+                        name: "Federated Learning",
+                        children: [
+                          { name: "Federated Averaging (FedAvg)" },
+                          { name: "Secure Aggregation Protocols" },
+                          { name: "Differential Privacy Techniques" },
+                        ],
+                      },
+                      {
+                        name: "Multimodal Learning",
+                        children: [
+                          { name: "Text and Image Integration" },
+                          { name: "Audio-Visual Speech Recognition" },
+                          { name: "Video Captioning" },
+                        ],
+                      },
+                      {
+                        name: "Continual Learning",
+                        children: [
+                          { name: "Elastic Weight Consolidation (EWC)" },
+                          { name: "Synaptic Intelligence (SI)" },
+                          { name: "Memory Replay Methods" },
+                        ],
+                      },
+                      {
+                        name: "Neuro-Symbolic AI",
+                        children: [
+                          { name: "Logic Tensor Networks" },
+                          { name: "Neural Theorem Provers" },
+                          { name: "Neural Logic Machines" },
+                        ],
+                      },
+                      {
+                        name: "Causal Learning",
+                        children: [
+                          { name: "Causal Discovery" },
+                          { name: "Structural Causal Models" },
+                          { name: "Do-Calculus" },
+                        ],
+                      },
+                      {
+                        name: "Meta-Learning",
+                        children: [
+                          { name: "Model-Agnostic Meta-Learning (MAML)" },
+                          { name: "Prototypical Networks" },
+                          { name: "Relation Networks" },
+                        ],
+                      },
+                      {
+                        name: "Few-Shot and Zero-Shot Learning",
+                        children: [
+                          { name: "Siamese Networks" },
+                          { name: "Matching Networks" },
+                          { name: "GPT-3 Zero-Shot Capabilities" },
+                        ],
+                      },
+                      {
+                        name: "Large Language Models (LLMs)",
+                        children: [
+                          { name: "GPT-3" },
+                          { name: "GPT-4" },
+                          { name: "T5" },
+                          { name: "Megatron-LM" },
+                          { name: "BLOOM" },
+                        ],
+                      },
+                      {
+                        name: "Foundation Models",
+                        children: [
+                          { name: "GPT-3" },
+                          { name: "CLIP" },
+                          { name: "DALL·E" },
+                          { name: "Flamingo" },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Natural Language Processing (NLP)",
+            children: [
+              {
+                name: "Tasks",
+                children: [
+                  { name: "Language Modeling" },
+                  { name: "Machine Translation" },
+                  { name: "Sentiment Analysis" },
+                  { name: "Named Entity Recognition (NER)" },
+                  { name: "Part-of-Speech Tagging" },
+                  { name: "Question Answering" },
+                  { name: "Text Summarization" },
+                  { name: "Dialogue Systems" },
+                  { name: "Text Classification" },
+                  { name: "Natural Language Generation" },
+                  { name: "Semantic Parsing" },
+                  { name: "Coreference Resolution" },
+                ],
+              },
+              {
+                name: "Techniques",
+                children: [
+                  { name: "Bag-of-Words Models" },
+                  { name: "N-gram Models" },
+                  { name: "Word Embeddings" },
+                  { name: "Recurrent Neural Networks" },
+                  { name: "Transformers" },
+                ],
+              },
+              {
+                name: "Pretrained Language Models",
+                children: [
+                  { name: "BERT" },
+                  { name: "RoBERTa" },
+                  { name: "ALBERT" },
+                  { name: "GPT Series" },
+                  { name: "T5" },
+                  { name: "XLNet" },
+                  { name: "ELECTRA" },
+                  { name: "Megatron-LM" },
+                  { name: "BLOOM" },
+                ],
+              },
+              {
+                name: "Conversational AI",
+                children: [
+                  { name: "Open-Domain Chatbots" },
+                  { name: "Task-Oriented Dialogue Systems" },
+                  { name: "Transfer Learning in Dialogue Systems" },
+                ],
+              },
+              {
+                name: "Multimodal NLP",
+                children: [
+                  { name: "CLIP" },
+                  { name: "VisualBERT" },
+                  { name: "LXMERT" },
+                ],
+              },
+              {
+                name: "Cross-Lingual Models",
+                children: [{ name: "XLM-R" }, { name: "mBERT" }],
+              },
+            ],
+          },
+          {
+            name: "Computer Vision",
+            children: [
+              {
+                name: "Tasks",
+                children: [
+                  { name: "Image Classification" },
+                  { name: "Object Detection" },
+                  { name: "Image Segmentation" },
+                  { name: "Facial Recognition" },
+                  { name: "Activity Recognition" },
+                  { name: "Image Captioning" },
+                  { name: "Video Analysis" },
+                  { name: "3D Reconstruction" },
+                  { name: "Depth Estimation" },
+                  { name: "Pose Estimation" },
+                ],
+              },
+              {
+                name: "Techniques",
+                children: [
+                  { name: "Convolutional Neural Networks" },
+                  { name: "Vision Transformers (ViT)" },
+                  { name: "Generative Models" },
+                  { name: "Self-Supervised Learning" },
+                  { name: "3D Computer Vision" },
+                  { name: "Object Detection Models" },
+                  { name: "Image Segmentation Models" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Autonomous Vehicles" },
+                  { name: "Medical Image Analysis" },
+                  { name: "Augmented Reality (AR)" },
+                  { name: "Remote Sensing" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Robotics and Autonomous Systems",
+            children: [
+              {
+                name: "Perception Systems",
+                children: [
+                  { name: "Sensor Fusion" },
+                  { name: "SLAM" },
+                  { name: "Object Recognition" },
+                ],
+              },
+              {
+                name: "Motion Planning and Control",
+                children: [
+                  { name: "Path Planning Algorithms" },
+                  { name: "Control Systems" },
+                ],
+              },
+              {
+                name: "Manipulation and Grasping",
+                children: [
+                  { name: "Robotic Arm Control" },
+                  { name: "Grasp Planning" },
+                  { name: "Tactile Sensing" },
+                ],
+              },
+              {
+                name: "Learning in Robotics",
+                children: [
+                  { name: "Reinforcement Learning" },
+                  { name: "Imitation Learning" },
+                  { name: "Sim-to-Real Transfer Learning" },
+                ],
+              },
+              {
+                name: "Human-Robot Interaction",
+                children: [
+                  { name: "Social Robotics" },
+                  { name: "Natural Language Interaction" },
+                  { name: "Gesture Recognition" },
+                  { name: "Assistive Robotics" },
+                ],
+              },
+              {
+                name: "Robotic Navigation",
+                children: [
+                  { name: "Obstacle Avoidance" },
+                  { name: "Autonomous Exploration" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Industrial Automation" },
+                  { name: "Service Robots" },
+                  { name: "Medical Robotics" },
+                  { name: "Space Robotics" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Speech and Audio Processing",
+            children: [
+              {
+                name: "Automatic Speech Recognition (ASR)",
+                children: [
+                  { name: "DeepSpeech" },
+                  { name: "Transformer ASR Models" },
+                ],
+              },
+              {
+                name: "Text-to-Speech (TTS)",
+                children: [
+                  { name: "WaveNet" },
+                  { name: "Tacotron" },
+                  { name: "FastSpeech" },
+                  { name: "Neural Voice Cloning" },
+                ],
+              },
+              {
+                name: "Speaker Identification and Verification",
+                children: [
+                  { name: "Voice Biometrics" },
+                  { name: "Speaker Diarization" },
+                ],
+              },
+              {
+                name: "Emotion Recognition",
+                children: [
+                  { name: "Prosody Analysis" },
+                  { name: "Affective Computing" },
+                ],
+              },
+              {
+                name: "Audio Classification",
+                children: [
+                  { name: "Music Genre Classification" },
+                  { name: "Environmental Sound Classification" },
+                ],
+              },
+              {
+                name: "Speech Enhancement",
+                children: [
+                  { name: "Noise Reduction" },
+                  { name: "Speech Dereverberation" },
+                ],
+              },
+              {
+                name: "Multilingual Speech Models",
+                children: [
+                  { name: "Multilingual ASR" },
+                  { name: "Code-Switching Recognition" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Recommender Systems",
+            children: [
+              {
+                name: "Collaborative Filtering",
+                children: [
+                  { name: "User-Based Filtering" },
+                  { name: "Item-Based Filtering" },
+                  { name: "Matrix Factorization" },
+                  { name: "Singular Value Decomposition (SVD)" },
+                ],
+              },
+              {
+                name: "Content-Based Filtering",
+                children: [
+                  { name: "Feature Extraction" },
+                  { name: "Similarity Measures" },
+                ],
+              },
+              {
+                name: "Hybrid Methods",
+                children: [
+                  {
+                    name: "Combining Collaborative and Content-Based Approaches",
+                  },
+                ],
+              },
+              {
+                name: "Deep Learning for Recommendations",
+                children: [
+                  { name: "Neural Collaborative Filtering" },
+                  { name: "Autoencoders for Recommendations" },
+                  { name: "Graph-Based Recommendations" },
+                ],
+              },
+              {
+                name: "Context-Aware Recommendations",
+                children: [
+                  { name: "Location-Based Services" },
+                  { name: "Time-Aware Recommendations" },
+                ],
+              },
+              {
+                name: "Sequential and Session-Based Recommendations",
+                children: [
+                  { name: "Recurrent Neural Networks" },
+                  { name: "Transformers" },
+                ],
+              },
+              {
+                name: "Privacy-Preserving Recommendations",
+                children: [
+                  { name: "Differential Privacy" },
+                  { name: "Federated Learning" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Meta-Learning and AutoML",
+            children: [
+              {
+                name: "Meta-Learning",
+                children: [
+                  { name: "Model-Agnostic Meta-Learning (MAML)" },
+                  { name: "Meta-SGD" },
+                  { name: "Reptile Algorithm" },
+                  { name: "Prototypical Networks" },
+                  { name: "Relation Networks" },
+                  { name: "Matching Networks" },
+                ],
+              },
+              {
+                name: "Automated Machine Learning (AutoML)",
+                children: [
+                  { name: "Hyperparameter Optimization" },
+                  { name: "Neural Architecture Search (NAS)" },
+                ],
+              },
+              {
+                name: "Transfer Learning",
+                children: [
+                  { name: "Fine-Tuning Pretrained Models" },
+                  { name: "Domain Adaptation" },
+                  { name: "Multi-Task Learning" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Explainable AI (XAI) and Fairness",
+            children: [
+              {
+                name: "Interpretable Models",
+                children: [
+                  { name: "Decision Trees" },
+                  { name: "Rule-Based Models" },
+                  { name: "Generalized Additive Models (GAMs)" },
+                  { name: "Explainable Boosting Machines (EBMs)" },
+                ],
+              },
+              {
+                name: "Post-Hoc Explanation Methods",
+                children: [
+                  { name: "Feature Importance" },
+                  { name: "LIME" },
+                  { name: "SHAP" },
+                  { name: "Counterfactual Explanations" },
+                  { name: "Saliency Maps" },
+                ],
+              },
+              {
+                name: "Causal Explainability",
+                children: [
+                  { name: "Structural Causal Models" },
+                  { name: "Do-Calculus" },
+                ],
+              },
+              {
+                name: "Fairness Metrics and Bias Mitigation",
+                children: [
+                  { name: "Demographic Parity" },
+                  { name: "Equal Opportunity" },
+                  { name: "Adversarial Debiasing" },
+                ],
+              },
+              {
+                name: "AI Safety and Alignment",
+                children: [
+                  { name: "Robustness to Adversarial Attacks" },
+                  { name: "Safe Reinforcement Learning" },
+                  { name: "Value Alignment" },
+                  { name: "AI Governance and Policy" },
+                ],
+              },
+              {
+                name: "Ethical Frameworks",
+                children: [
+                  { name: "Transparency" },
+                  { name: "Accountability" },
+                  { name: "Privacy Considerations" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Optimization and Search Algorithms",
+            children: [
+              {
+                name: "Gradient-Based Optimization",
+                children: [
+                  { name: "Gradient Descent" },
+                  { name: "Stochastic Gradient Descent (SGD)" },
+                  { name: "Momentum Methods" },
+                  { name: "Adaptive Learning Rate Methods" },
+                ],
+              },
+              {
+                name: "Evolutionary Algorithms",
+                children: [
+                  { name: "Genetic Algorithms" },
+                  { name: "Evolution Strategies" },
+                  { name: "Genetic Programming" },
+                ],
+              },
+              {
+                name: "Swarm Intelligence",
+                children: [
+                  { name: "Particle Swarm Optimization" },
+                  { name: "Ant Colony Optimization" },
+                ],
+              },
+              {
+                name: "Bayesian Optimization",
+                children: [
+                  { name: "Gaussian Processes" },
+                  { name: "Tree-structured Parzen Estimators (TPE)" },
+                ],
+              },
+              { name: "Simulated Annealing" },
+              {
+                name: "Search Algorithms in AI",
+                children: [
+                  { name: "Breadth-First Search (BFS)" },
+                  { name: "Depth-First Search (DFS)" },
+                  { name: "A* Search" },
+                  { name: "Dijkstra's Algorithm" },
+                  { name: "Minimax Algorithm" },
+                  { name: "Alpha-Beta Pruning" },
+                  { name: "Monte Carlo Tree Search (MCTS)" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Edge AI and Embedded Systems",
+            children: [
+              {
+                name: "TinyML",
+                children: [
+                  { name: "Model Compression Techniques" },
+                  { name: "Quantization" },
+                  { name: "Pruning" },
+                  { name: "Knowledge Distillation" },
+                  { name: "On-Device Machine Learning" },
+                ],
+              },
+              {
+                name: "Hardware for AI",
+                children: [
+                  { name: "GPUs" },
+                  { name: "TPUs" },
+                  { name: "FPGAs" },
+                  { name: "ASICs" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "IoT Devices" },
+                  { name: "Mobile AI Applications" },
+                  { name: "Real-Time Inference" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Federated Learning and Privacy-Preserving AI",
+            children: [
+              {
+                name: "Federated Learning Frameworks",
+                children: [
+                  { name: "Federated Averaging (FedAvg)" },
+                  { name: "Secure Aggregation Protocols" },
+                  { name: "Differential Privacy Techniques" },
+                ],
+              },
+              { name: "Split Learning" },
+              {
+                name: "Encrypted Computation",
+                children: [
+                  { name: "Homomorphic Encryption" },
+                  { name: "Secure Multi-Party Computation" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Healthcare Data Analysis" },
+                  { name: "Collaborative Learning Across Institutions" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Multimodal Learning",
+            children: [
+              {
+                name: "Models Processing Multiple Data Types",
+                children: [
+                  { name: "Text and Image Integration" },
+                  { name: "Audio-Visual Speech Recognition" },
+                  { name: "Video Captioning" },
+                ],
+              },
+              {
+                name: "Multimodal Transformers",
+                children: [
+                  { name: "CLIP" },
+                  { name: "VisualBERT" },
+                  { name: "LXMERT" },
+                  { name: "UNITER" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Autonomous Driving" },
+                  { name: "Robotics" },
+                  { name: "Healthcare Diagnostics" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Causal Inference and Causal Discovery",
+            children: [
+              { name: "Causal Graphical Models" },
+              { name: "Structural Equation Modeling" },
+              { name: "Do-Calculus" },
+              { name: "Counterfactual Reasoning" },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Epidemiology" },
+                  { name: "Economics" },
+                  { name: "Social Sciences" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Neuro-Symbolic AI",
+            children: [
+              {
+                name: "Combining Neural Networks with Symbolic Reasoning",
+                children: [
+                  { name: "Logic Tensor Networks" },
+                  { name: "Neural Theorem Provers" },
+                  { name: "Neural Logic Machines" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Knowledge Graph Reasoning" },
+                  { name: "Program Synthesis" },
+                  { name: "Commonsense Reasoning" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Continual Learning (Lifelong Learning)",
+            children: [
+              {
+                name: "Techniques to Learn Sequentially",
+                children: [
+                  { name: "Elastic Weight Consolidation (EWC)" },
+                  { name: "Synaptic Intelligence (SI)" },
+                  { name: "Memory Replay Methods" },
+                  { name: "Progressive Neural Networks" },
+                  { name: "Dynamically Expandable Networks" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Personalization" },
+                  { name: "Robotics" },
+                  { name: "Adaptive Systems" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Self-Supervised Learning",
+            children: [
+              {
+                name: "Learning Representations Without Labels",
+                children: [
+                  { name: "Contrastive Learning" },
+                  { name: "Masked Autoencoders" },
+                  { name: "Predictive Coding" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Pretraining Models" },
+                  { name: "Representation Learning" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Foundation Models",
+            children: [
+              {
+                name: "Large-Scale Pretrained Models Adaptable to Many Tasks",
+                children: [
+                  { name: "GPT-3" },
+                  { name: "GPT-4" },
+                  { name: "T5" },
+                  { name: "CLIP" },
+                  { name: "DALL·E" },
+                  { name: "Flamingo" },
+                  { name: "Gopher" },
+                ],
+              },
+              {
+                name: "Properties",
+                children: [
+                  { name: "Few-Shot Learning" },
+                  { name: "Zero-Shot Learning" },
+                  { name: "Multitask Learning" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Language Understanding and Generation" },
+                  { name: "Image Generation" },
+                  { name: "Code Generation" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Ethics, Fairness, and AI Alignment",
+            children: [
+              {
+                name: "AI Safety Research",
+                children: [
+                  { name: "Robustness" },
+                  { name: "Interpretability" },
+                  { name: "Prevention of Unintended Behaviors" },
+                ],
+              },
+              {
+                name: "Fairness Metrics",
+                children: [
+                  { name: "Statistical Parity" },
+                  { name: "Equalized Odds" },
+                ],
+              },
+              {
+                name: "Bias Mitigation Techniques",
+                children: [
+                  { name: "Preprocessing Methods" },
+                  { name: "In-Processing Methods" },
+                  { name: "Post-Processing Methods" },
+                ],
+              },
+              {
+                name: "AI Governance and Policy",
+                children: [
+                  { name: "Regulatory Frameworks" },
+                  { name: "Ethical Guidelines" },
+                ],
+              },
+              {
+                name: "AI and Society",
+                children: [
+                  { name: "Impact on Employment" },
+                  { name: "Privacy Concerns" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "AI for Science and Medicine",
+            children: [
+              {
+                name: "Protein Folding",
+                children: [{ name: "AlphaFold" }],
+              },
+              {
+                name: "Drug Discovery",
+                children: [
+                  { name: "Virtual Screening" },
+                  { name: "Molecular Property Prediction" },
+                ],
+              },
+              {
+                name: "Climate Modeling",
+                children: [
+                  { name: "Weather Prediction" },
+                  { name: "Environmental Monitoring" },
+                ],
+              },
+              {
+                name: "Materials Science",
+                children: [
+                  { name: "Materials Design" },
+                  { name: "Simulation Acceleration" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Human-Centered AI",
+            children: [
+              { name: "User Experience (UX) in AI Systems" },
+              { name: "Trust and Transparency" },
+              {
+                name: "Collaborative AI",
+                children: [
+                  { name: "Human-in-the-Loop Learning" },
+                  { name: "Interactive Machine Learning" },
+                ],
+              },
+              {
+                name: "AI for Accessibility",
+                children: [
+                  { name: "Assistive Technologies" },
+                  { name: "Adaptive Interfaces" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Quantum Machine Learning",
+            children: [
+              { name: "Quantum Computing Principles" },
+              {
+                name: "Quantum Algorithms for ML",
+                children: [
+                  { name: "Quantum Neural Networks" },
+                  { name: "Quantum Support Vector Machines" },
+                  { name: "Variational Quantum Circuits" },
+                ],
+              },
+              {
+                name: "Applications",
+                children: [
+                  { name: "Optimization Problems" },
+                  { name: "Cryptography" },
+                  { name: "Material Simulation" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "Cognitive Computing and Affective Computing",
+            children: [
+              {
+                name: "Cognitive Computing",
+                children: [
+                  { name: "IBM Watson" },
+                  { name: "Knowledge Representation" },
+                ],
+              },
+              {
+                name: "Affective Computing",
+                children: [
+                  { name: "Emotion Recognition" },
+                  { name: "Sentiment Analysis" },
+                  { name: "Human-Computer Interaction" },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      // Set up dimensions dynamically
+      const margin = { top: 20, right: 200, bottom: 20, left: 300 };
+      const infoBoxHeight = 100;
+      const titleHeight = 60;
+      const toggleHeight = 30;
+      let width = window.innerWidth - margin.left - margin.right;
+      let height =
+        window.innerHeight -
+        margin.top -
+        margin.bottom -
+        infoBoxHeight -
+        titleHeight -
+        toggleHeight;
+
+      // Initialize a unique ID counter for each node
+      let i = 0;
+
+      // Create an SVG container
+      const svg = d3
+        .select("#tree-container")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr(
+          "viewBox",
+          `0 0 ${width + margin.left + margin.right} ${
+            height + margin.top + margin.bottom
+          }`
+        )
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      // Create a D3 tree layout
+      const treeLayout = d3.tree().size([height, width - 400]); // Adjust size to fit within the SVG
+
+      // Create a root node
+      const root = d3.hierarchy(aiHierarchy);
+
+      // Open all nodes initially
+      if (root.children) {
+        root.children.forEach(collapse);
+      }
+
+      function collapse(d) {
+        if (d.children) {
+          d._children = d.children;
+          d._children.forEach(collapse);
+          d.children = null;
+        }
+      }
+
+      function wrap(text, width) {
+        text.each(function () {
+          const text = d3.select(this);
+          const words = text.text().split(/\s+/).reverse();
+          let word;
+          let line = [];
+          let lineNumber = 0;
+          const lineHeight = 1.1;
+          const y = text.attr("y");
+          const dy = parseFloat(text.attr("dy"));
+          let tspan = text
+            .text(null)
+            .append("tspan")
+            .attr("x", 0)
+            .attr("y", y)
+            .attr("dy", dy + "em");
+
+          while ((word = words.pop())) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+              line.pop();
+              tspan.text(line.join(" "));
+              line = [word];
+              tspan = text
+                .append("tspan")
+                .attr("x", 0)
+                .attr("y", y)
+                .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                .text(word);
+            }
+          }
+        });
+      }
+
+      function getNodeColor(d) {
+        // Outdated (Red)
+        if (
+          [
+            "Simple RNNs",
+            "LeNet",
+            "Polynomial Regression",
+            "Mean Shift Clustering",
+            "Basic Actor-Critic Methods",
+            "Dyna-Q",
+            "Basic GANs",
+            "Adagrad",
+            "Adadelta",
+            "Simulated Annealing",
+            "Bag-of-Words Models",
+            "Rule-Based Models for NLP",
+            "IBM Watson",
+            "Ant Colony Optimization",
+            "Feedforward Neural Networks (FFNNs)",
+            "N-gram Models",
+            "mBERT",
+            "Basic Autoencoders",
+            "t-Distributed Stochastic Neighbor Embedding (t-SNE)",
+          ].includes(d.data.name)
+        ) {
+          return "red"; // Outdated
+        }
+
+        // Rarely Used (Yellow)
+        else if (
+          [
+            "Linear Regression",
+            "Support Vector Regression (SVR)",
+            "Polynomial Regression",
+            "Isolation Forest",
+            "One-Class SVM",
+            "DBSCAN",
+            "Genetic Algorithms",
+            "Genetic Programming",
+            "Particle Swarm Optimization",
+            "Hierarchical Clustering",
+            "Mean Shift Clustering",
+            "Q-Learning",
+            "Dueling DQN",
+            "Double DQN",
+            "K-Nearest Neighbors (KNN)",
+            "Naive Bayes Classifiers",
+            "Singular Value Decomposition (SVD)",
+            "Autoencoders",
+            "DeepSpeech",
+            "Gaussian Mixture Models (GMM)",
+            "Deep Q-Networks (DQN)",
+            "Long Short-Term Memory Networks (LSTMs)",
+            "GraphSAGE",
+            "Bayesian Networks",
+            "K-Means Clustering",
+            "Convolutional Neural Networks (CNNs)",
+            "Gaussian Processes",
+            "Independent Component Analysis (ICA)",
+            "Principal Component Analysis (PCA)",
+            "Elastic Weight Consolidation (EWC)",
+          ].includes(d.data.name)
+        ) {
+          return "yellow"; // Rarely used
+        }
+
+        // Commonly Used (Green)
+        else {
+          return "green"; // Commonly used
+        }
+      }
+
+      // Function to update the tree visualization
+      function update(source) {
+        const treeData = treeLayout(root);
+        const nodes = treeData.descendants().reverse();
+        const links = treeData.descendants().slice(1);
+
+        // Normalize for fixed depth
+        nodes.forEach((d) => (d.y = d.depth * 300));
+
+        // Add nodes
+        const node = svg
+          .selectAll("g.node")
+          .data(nodes, (d) => d.id || (d.id = ++i));
+
+        // Enter new nodes at the parent's previous position
+        const nodeEnter = node
+          .enter()
+          .append("g")
+          .attr("class", "node")
+          .attr("transform", (d) => `translate(${source.y0},${source.x0})`)
+          .on("click", click);
+
+        // Add circles for the nodes
+        nodeEnter
+          .append("circle")
+          .attr("r", 1e-6)
+          .style("fill", (d) => getNodeColor(d))
+          .style("stroke", (d) =>
+            body.classList.contains("dark-mode") ? "#888" : "#555"
+          );
+
+        // Add labels for the nodes
+        nodeEnter
+          .append("text")
+          .attr("dy", ".35em")
+          .attr(
+            "transform",
+            (d) => `translate(${d.children || d._children ? -20 : 10}, 0)`
+          ) // Use transform to shift text
+          .attr("text-anchor", (d) =>
+            d.children || d._children ? "end" : "start"
+          )
+          .text((d) => d.data.name)
+          .style("font-size", "16px")
+          .style("font-weight", "bold")
+          .style("fill", (d) =>
+            body.classList.contains("dark-mode") ? "#f5f5f5" : "#333"
+          )
+          .call(wrap, 250);
+
+        // Transition to the proper position for the node
+        const nodeUpdate = nodeEnter.merge(node);
+
+        nodeUpdate
+          .transition()
+          .duration(750)
+          .attr("transform", (d) => `translate(${d.y},${d.x})`);
+
+        nodeUpdate
+          .select("circle")
+          .attr("r", 8)
+          .style("fill", (d) => getNodeColor(d))
+          .style("stroke", (d) =>
+            body.classList.contains("dark-mode") ? "#888" : "#555"
+          );
+
+        nodeUpdate
+          .select("text")
+          .style("fill", (d) =>
+            body.classList.contains("dark-mode") ? "#f5f5f5" : "#333"
+          );
+
+        // Remove any exiting nodes
+        const nodeExit = node
+          .exit()
+          .transition()
+          .duration(750)
+          .attr("transform", (d) => `translate(${source.y},${source.x})`)
+          .remove();
+
+        // On exit reduce the node circles size to 0
+        nodeExit.select("circle").attr("r", 1e-6);
+
+        // On exit reduce the opacity of text labels
+        nodeExit.select("text").style("fill-opacity", 1e-6);
+
+        // Add links between nodes
+        const link = svg.selectAll("path.link").data(links, (d) => d.id);
+
+        // Enter any new links at the parent's previous position
+        const linkEnter = link
+          .enter()
+          .insert("path", "g")
+          .attr("class", "link")
+          .attr("d", (d) => {
+            const o = { x: source.x0, y: source.y0 };
+            return diagonal(o, o);
+          })
+          .style("stroke", (d) =>
+            body.classList.contains("dark-mode") ? "#999" : "#555"
+          );
+
+        // Transition links to their new position
+        const linkUpdate = linkEnter.merge(link);
+
+        linkUpdate
+          .transition()
+          .duration(750)
+          .attr("d", (d) => diagonal(d, d.parent))
+          .style("stroke", (d) =>
+            body.classList.contains("dark-mode") ? "#999" : "#555"
+          );
+
+        // Remove any exiting links
+        const linkExit = link
+          .exit()
+          .transition()
+          .duration(750)
+          .attr("d", (d) => {
+            const o = { x: source.x, y: source.y };
+            return diagonal(o, o);
+          })
+          .remove();
+
+        // Store the old positions for transition
+        nodes.forEach((d) => {
+          d.x0 = d.x;
+          d.y0 = d.y;
+        });
+
+        // Creates a curved (diagonal) path from parent to the child nodes
+        function diagonal(s, d) {
+          const path = `M ${s.y} ${s.x}
+                  C ${(s.y + d.y) / 2} ${s.x},
+                    ${(s.y + d.y) / 2} ${d.x},
+                    ${d.y} ${d.x}`;
+          return path;
+        }
+
+        // Toggle children on click
+        function click(event, d) {
+          if (d.children) {
+            d._children = d.children;
+            d.children = null;
+          } else {
+            d.children = d._children;
+            d._children = null;
+          }
+          update(d); // Correctly update the tree after toggling
+        }
+        // Debugging: Log all nodes
+        console.log("All nodes: ", nodes);
+
+        // Debugging: Log links between nodes
+        console.log("All links: ", links);
+      }
+
+      // Initialize the tree
+      root.x0 = height / 2;
+      root.y0 = 0;
+      update(root);
+      updateNodeAndTextSizes();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1126 @@
+// AI Hierarchy Diagram
+digraph AI_Hierarchy {
+	rankdir=TB size="8,10"
+	"Artificial Intelligence (AI)" [fillcolor=lightgrey shape=box style=filled]
+	rankdir=LR size="1000,1000"
+	"Machine Learning (ML)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Machine Learning (ML)"
+	"Supervised Learning" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Supervised Learning"
+	Regression [fillcolor=lightblue shape=box style=filled]
+	"Supervised Learning" -> Regression
+	"Linear Regression" [shape=ellipse]
+	Regression -> "Linear Regression"
+	"Polynomial Regression" [shape=ellipse]
+	Regression -> "Polynomial Regression"
+	"Support Vector Regression (SVR)" [shape=ellipse]
+	Regression -> "Support Vector Regression (SVR)"
+	"Decision Trees for Regression" [shape=ellipse]
+	Regression -> "Decision Trees for Regression"
+	"Random Forest Regression" [shape=ellipse]
+	Regression -> "Random Forest Regression"
+	"Gradient Boosting Regression" [shape=ellipse]
+	Regression -> "Gradient Boosting Regression"
+	"Neural Network Regression" [shape=ellipse]
+	Regression -> "Neural Network Regression"
+	Classification [fillcolor=lightblue shape=box style=filled]
+	"Supervised Learning" -> Classification
+	"Logistic Regression" [shape=ellipse]
+	Classification -> "Logistic Regression"
+	"K-Nearest Neighbors (KNN)" [shape=ellipse]
+	Classification -> "K-Nearest Neighbors (KNN)"
+	"Support Vector Machines (SVM)" [shape=ellipse]
+	Classification -> "Support Vector Machines (SVM)"
+	"Decision Trees for Classification" [shape=ellipse]
+	Classification -> "Decision Trees for Classification"
+	"Random Forest Classification" [shape=ellipse]
+	Classification -> "Random Forest Classification"
+	"Gradient Boosting Classification" [shape=ellipse]
+	Classification -> "Gradient Boosting Classification"
+	"Naive Bayes Classifiers" [shape=ellipse]
+	Classification -> "Naive Bayes Classifiers"
+	"Neural Networks for Classification" [shape=ellipse]
+	Classification -> "Neural Networks for Classification"
+	"Ensemble Methods" [shape=ellipse]
+	Classification -> "Ensemble Methods"
+	"Unsupervised Learning" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Unsupervised Learning"
+	Clustering [fillcolor=lightblue shape=box style=filled]
+	"Unsupervised Learning" -> Clustering
+	"K-Means Clustering" [shape=ellipse]
+	Clustering -> "K-Means Clustering"
+	"Hierarchical Clustering" [shape=ellipse]
+	Clustering -> "Hierarchical Clustering"
+	DBSCAN [shape=ellipse]
+	Clustering -> DBSCAN
+	"Mean Shift Clustering" [shape=ellipse]
+	Clustering -> "Mean Shift Clustering"
+	"Gaussian Mixture Models (GMM)" [shape=ellipse]
+	Clustering -> "Gaussian Mixture Models (GMM)"
+	"Dimensionality Reduction" [fillcolor=lightblue shape=box style=filled]
+	"Unsupervised Learning" -> "Dimensionality Reduction"
+	"Principal Component Analysis (PCA)" [shape=ellipse]
+	"Dimensionality Reduction" -> "Principal Component Analysis (PCA)"
+	"Independent Component Analysis (ICA)" [shape=ellipse]
+	"Dimensionality Reduction" -> "Independent Component Analysis (ICA)"
+	"t-Distributed Stochastic Neighbor Embedding (t-SNE)" [shape=ellipse]
+	"Dimensionality Reduction" -> "t-Distributed Stochastic Neighbor Embedding (t-SNE)"
+	"Uniform Manifold Approximation and Projection (UMAP)" [shape=ellipse]
+	"Dimensionality Reduction" -> "Uniform Manifold Approximation and Projection (UMAP)"
+	Autoencoders [shape=ellipse]
+	"Dimensionality Reduction" -> Autoencoders
+	"Anomaly Detection" [fillcolor=lightblue shape=box style=filled]
+	"Unsupervised Learning" -> "Anomaly Detection"
+	"One-Class SVM" [shape=ellipse]
+	"Anomaly Detection" -> "One-Class SVM"
+	"Isolation Forest" [shape=ellipse]
+	"Anomaly Detection" -> "Isolation Forest"
+	"Local Outlier Factor (LOF)" [shape=ellipse]
+	"Anomaly Detection" -> "Local Outlier Factor (LOF)"
+	"Semi-Supervised Learning" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Semi-Supervised Learning"
+	"Self-Training Models" [shape=ellipse]
+	"Semi-Supervised Learning" -> "Self-Training Models"
+	"Co-Training Methods" [shape=ellipse]
+	"Semi-Supervised Learning" -> "Co-Training Methods"
+	"Graph-Based Semi-Supervised Learning" [shape=ellipse]
+	"Semi-Supervised Learning" -> "Graph-Based Semi-Supervised Learning"
+	"Reinforcement Learning (RL)" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Reinforcement Learning (RL)"
+	"Model-Free RL" [fillcolor=lightblue shape=box style=filled]
+	"Reinforcement Learning (RL)" -> "Model-Free RL"
+	"Value-Based Methods" [fillcolor=lightblue shape=box style=filled]
+	"Model-Free RL" -> "Value-Based Methods"
+	"Q-Learning" [shape=ellipse]
+	"Value-Based Methods" -> "Q-Learning"
+	"Deep Q-Networks (DQN)" [shape=ellipse]
+	"Value-Based Methods" -> "Deep Q-Networks (DQN)"
+	"Double DQN" [shape=ellipse]
+	"Value-Based Methods" -> "Double DQN"
+	"Dueling DQN" [shape=ellipse]
+	"Value-Based Methods" -> "Dueling DQN"
+	"Rainbow DQN" [shape=ellipse]
+	"Value-Based Methods" -> "Rainbow DQN"
+	"Policy-Based Methods" [fillcolor=lightblue shape=box style=filled]
+	"Model-Free RL" -> "Policy-Based Methods"
+	"Policy Gradients" [shape=ellipse]
+	"Policy-Based Methods" -> "Policy Gradients"
+	"REINFORCE Algorithm" [shape=ellipse]
+	"Policy-Based Methods" -> "REINFORCE Algorithm"
+	"Actor-Critic Methods" [shape=ellipse]
+	"Policy-Based Methods" -> "Actor-Critic Methods"
+	"Advantage Actor-Critic (A2C)" [shape=ellipse]
+	"Policy-Based Methods" -> "Advantage Actor-Critic (A2C)"
+	"Asynchronous Advantage Actor-Critic (A3C)" [shape=ellipse]
+	"Policy-Based Methods" -> "Asynchronous Advantage Actor-Critic (A3C)"
+	"Proximal Policy Optimization (PPO)" [shape=ellipse]
+	"Policy-Based Methods" -> "Proximal Policy Optimization (PPO)"
+	"Deep Deterministic Policy Gradient (DDPG)" [shape=ellipse]
+	"Policy-Based Methods" -> "Deep Deterministic Policy Gradient (DDPG)"
+	"Twin Delayed DDPG (TD3)" [shape=ellipse]
+	"Policy-Based Methods" -> "Twin Delayed DDPG (TD3)"
+	"Soft Actor-Critic (SAC)" [shape=ellipse]
+	"Policy-Based Methods" -> "Soft Actor-Critic (SAC)"
+	"Model-Based RL" [fillcolor=lightblue shape=box style=filled]
+	"Reinforcement Learning (RL)" -> "Model-Based RL"
+	"Dyna-Q" [shape=ellipse]
+	"Model-Based RL" -> "Dyna-Q"
+	"Monte Carlo Tree Search (MCTS)" [shape=ellipse]
+	"Model-Based RL" -> "Monte Carlo Tree Search (MCTS)"
+	"World Models" [shape=ellipse]
+	"Model-Based RL" -> "World Models"
+	"Multi-Agent RL" [fillcolor=lightblue shape=box style=filled]
+	"Reinforcement Learning (RL)" -> "Multi-Agent RL"
+	"Hierarchical RL" [fillcolor=lightblue shape=box style=filled]
+	"Reinforcement Learning (RL)" -> "Hierarchical RL"
+	"Inverse Reinforcement Learning (IRL)" [fillcolor=lightblue shape=box style=filled]
+	"Reinforcement Learning (RL)" -> "Inverse Reinforcement Learning (IRL)"
+	"Imitation Learning" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Imitation Learning"
+	"Behavior Cloning" [shape=ellipse]
+	"Imitation Learning" -> "Behavior Cloning"
+	"Inverse Reinforcement Learning (IRL)" [shape=ellipse]
+	"Imitation Learning" -> "Inverse Reinforcement Learning (IRL)"
+	"Apprenticeship Learning" [shape=ellipse]
+	"Imitation Learning" -> "Apprenticeship Learning"
+	"Generative Adversarial Imitation Learning (GAIL)" [shape=ellipse]
+	"Imitation Learning" -> "Generative Adversarial Imitation Learning (GAIL)"
+	"Dataset Aggregation (DAgger)" [shape=ellipse]
+	"Imitation Learning" -> "Dataset Aggregation (DAgger)"
+	"Deep Learning" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Deep Learning"
+	"Artificial Neural Networks (ANNs)" [fillcolor=lightblue shape=box style=filled]
+	"Deep Learning" -> "Artificial Neural Networks (ANNs)"
+	"Feedforward Neural Networks (FFNNs)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Feedforward Neural Networks (FFNNs)"
+	"Multilayer Perceptrons (MLPs)" [shape=ellipse]
+	"Feedforward Neural Networks (FFNNs)" -> "Multilayer Perceptrons (MLPs)"
+	"Convolutional Neural Networks (CNNs)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Convolutional Neural Networks (CNNs)"
+	LeNet [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> LeNet
+	AlexNet [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> AlexNet
+	VGGNet [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> VGGNet
+	"GoogLeNet (Inception Networks)" [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> "GoogLeNet (Inception Networks)"
+	"ResNet (Residual Networks)" [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> "ResNet (Residual Networks)"
+	DenseNet [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> DenseNet
+	EfficientNet [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> EfficientNet
+	MobileNet [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> MobileNet
+	NASNet [shape=ellipse]
+	"Convolutional Neural Networks (CNNs)" -> NASNet
+	"Recurrent Neural Networks (RNNs)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Recurrent Neural Networks (RNNs)"
+	"Simple RNNs" [shape=ellipse]
+	"Recurrent Neural Networks (RNNs)" -> "Simple RNNs"
+	"Long Short-Term Memory Networks (LSTMs)" [shape=ellipse]
+	"Recurrent Neural Networks (RNNs)" -> "Long Short-Term Memory Networks (LSTMs)"
+	"Gated Recurrent Units (GRUs)" [shape=ellipse]
+	"Recurrent Neural Networks (RNNs)" -> "Gated Recurrent Units (GRUs)"
+	"Bidirectional RNNs" [shape=ellipse]
+	"Recurrent Neural Networks (RNNs)" -> "Bidirectional RNNs"
+	"Attention Mechanisms" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Attention Mechanisms"
+	"Additive Attention" [shape=ellipse]
+	"Attention Mechanisms" -> "Additive Attention"
+	"Multiplicative Attention" [shape=ellipse]
+	"Attention Mechanisms" -> "Multiplicative Attention"
+	"Self-Attention" [shape=ellipse]
+	"Attention Mechanisms" -> "Self-Attention"
+	Transformers [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> Transformers
+	"Natural Language Processing Transformers" [fillcolor=lightblue shape=box style=filled]
+	Transformers -> "Natural Language Processing Transformers"
+	"Original Transformer Architecture" [shape=ellipse]
+	"Natural Language Processing Transformers" -> "Original Transformer Architecture"
+	BERT [shape=ellipse]
+	"Natural Language Processing Transformers" -> BERT
+	"GPT Series" [shape=ellipse]
+	"Natural Language Processing Transformers" -> "GPT Series"
+	T5 [shape=ellipse]
+	"Natural Language Processing Transformers" -> T5
+	XLNet [shape=ellipse]
+	"Natural Language Processing Transformers" -> XLNet
+	ELECTRA [shape=ellipse]
+	"Natural Language Processing Transformers" -> ELECTRA
+	"Vision Transformers (ViT)" [fillcolor=lightblue shape=box style=filled]
+	Transformers -> "Vision Transformers (ViT)"
+	ViT [shape=ellipse]
+	"Vision Transformers (ViT)" -> ViT
+	DeiT [shape=ellipse]
+	"Vision Transformers (ViT)" -> DeiT
+	"Swin Transformer" [shape=ellipse]
+	"Vision Transformers (ViT)" -> "Swin Transformer"
+	"Multimodal Transformers" [fillcolor=lightblue shape=box style=filled]
+	Transformers -> "Multimodal Transformers"
+	VisualBERT [shape=ellipse]
+	"Multimodal Transformers" -> VisualBERT
+	LXMERT [shape=ellipse]
+	"Multimodal Transformers" -> LXMERT
+	CLIP [shape=ellipse]
+	"Multimodal Transformers" -> CLIP
+	Autoencoders [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> Autoencoders
+	"Basic Autoencoders" [shape=ellipse]
+	Autoencoders -> "Basic Autoencoders"
+	"Denoising Autoencoders" [shape=ellipse]
+	Autoencoders -> "Denoising Autoencoders"
+	"Variational Autoencoders (VAEs)" [shape=ellipse]
+	Autoencoders -> "Variational Autoencoders (VAEs)"
+	"Conditional VAEs (CVAEs)" [shape=ellipse]
+	Autoencoders -> "Conditional VAEs (CVAEs)"
+	"Generative Adversarial Networks (GANs)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Generative Adversarial Networks (GANs)"
+	"Basic GANs" [shape=ellipse]
+	"Generative Adversarial Networks (GANs)" -> "Basic GANs"
+	"Deep Convolutional GANs (DCGANs)" [shape=ellipse]
+	"Generative Adversarial Networks (GANs)" -> "Deep Convolutional GANs (DCGANs)"
+	"Conditional GANs (cGANs)" [shape=ellipse]
+	"Generative Adversarial Networks (GANs)" -> "Conditional GANs (cGANs)"
+	CycleGAN [shape=ellipse]
+	"Generative Adversarial Networks (GANs)" -> CycleGAN
+	StyleGAN [shape=ellipse]
+	"Generative Adversarial Networks (GANs)" -> StyleGAN
+	BigGAN [shape=ellipse]
+	"Generative Adversarial Networks (GANs)" -> BigGAN
+	"Wasserstein GAN (WGAN)" [shape=ellipse]
+	"Generative Adversarial Networks (GANs)" -> "Wasserstein GAN (WGAN)"
+	"Diffusion Models" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Diffusion Models"
+	"Denoising Diffusion Probabilistic Models (DDPMs)" [shape=ellipse]
+	"Diffusion Models" -> "Denoising Diffusion Probabilistic Models (DDPMs)"
+	"DALL·E 2" [shape=ellipse]
+	"Diffusion Models" -> "DALL·E 2"
+	"Stable Diffusion" [shape=ellipse]
+	"Diffusion Models" -> "Stable Diffusion"
+	"Graph Neural Networks (GNNs)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Graph Neural Networks (GNNs)"
+	"Graph Convolutional Networks (GCNs)" [shape=ellipse]
+	"Graph Neural Networks (GNNs)" -> "Graph Convolutional Networks (GCNs)"
+	"Graph Attention Networks (GATs)" [shape=ellipse]
+	"Graph Neural Networks (GNNs)" -> "Graph Attention Networks (GATs)"
+	GraphSAGE [shape=ellipse]
+	"Graph Neural Networks (GNNs)" -> GraphSAGE
+	"Message Passing Neural Networks (MPNNs)" [shape=ellipse]
+	"Graph Neural Networks (GNNs)" -> "Message Passing Neural Networks (MPNNs)"
+	"Self-Supervised Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Self-Supervised Learning"
+	"Contrastive Learning" [shape=ellipse]
+	"Self-Supervised Learning" -> "Contrastive Learning"
+	"Masked Autoencoders" [shape=ellipse]
+	"Self-Supervised Learning" -> "Masked Autoencoders"
+	"Predictive Coding" [shape=ellipse]
+	"Self-Supervised Learning" -> "Predictive Coding"
+	"Federated Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Federated Learning"
+	"Federated Averaging (FedAvg)" [shape=ellipse]
+	"Federated Learning" -> "Federated Averaging (FedAvg)"
+	"Secure Aggregation Protocols" [shape=ellipse]
+	"Federated Learning" -> "Secure Aggregation Protocols"
+	"Differential Privacy Techniques" [shape=ellipse]
+	"Federated Learning" -> "Differential Privacy Techniques"
+	"Multimodal Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Multimodal Learning"
+	"Text and Image Integration" [shape=ellipse]
+	"Multimodal Learning" -> "Text and Image Integration"
+	"Audio-Visual Speech Recognition" [shape=ellipse]
+	"Multimodal Learning" -> "Audio-Visual Speech Recognition"
+	"Video Captioning" [shape=ellipse]
+	"Multimodal Learning" -> "Video Captioning"
+	"Continual Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Continual Learning"
+	"Elastic Weight Consolidation (EWC)" [shape=ellipse]
+	"Continual Learning" -> "Elastic Weight Consolidation (EWC)"
+	"Synaptic Intelligence (SI)" [shape=ellipse]
+	"Continual Learning" -> "Synaptic Intelligence (SI)"
+	"Memory Replay Methods" [shape=ellipse]
+	"Continual Learning" -> "Memory Replay Methods"
+	"Neuro-Symbolic AI" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Neuro-Symbolic AI"
+	"Logic Tensor Networks" [shape=ellipse]
+	"Neuro-Symbolic AI" -> "Logic Tensor Networks"
+	"Neural Theorem Provers" [shape=ellipse]
+	"Neuro-Symbolic AI" -> "Neural Theorem Provers"
+	"Neural Logic Machines" [shape=ellipse]
+	"Neuro-Symbolic AI" -> "Neural Logic Machines"
+	"Causal Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Causal Learning"
+	"Causal Discovery" [shape=ellipse]
+	"Causal Learning" -> "Causal Discovery"
+	"Structural Causal Models" [shape=ellipse]
+	"Causal Learning" -> "Structural Causal Models"
+	"Do-Calculus" [shape=ellipse]
+	"Causal Learning" -> "Do-Calculus"
+	"Meta-Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Meta-Learning"
+	"Model-Agnostic Meta-Learning (MAML)" [shape=ellipse]
+	"Meta-Learning" -> "Model-Agnostic Meta-Learning (MAML)"
+	"Prototypical Networks" [shape=ellipse]
+	"Meta-Learning" -> "Prototypical Networks"
+	"Relation Networks" [shape=ellipse]
+	"Meta-Learning" -> "Relation Networks"
+	"Few-Shot and Zero-Shot Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Few-Shot and Zero-Shot Learning"
+	"Siamese Networks" [shape=ellipse]
+	"Few-Shot and Zero-Shot Learning" -> "Siamese Networks"
+	"Matching Networks" [shape=ellipse]
+	"Few-Shot and Zero-Shot Learning" -> "Matching Networks"
+	"GPT-3 Zero-Shot Capabilities" [shape=ellipse]
+	"Few-Shot and Zero-Shot Learning" -> "GPT-3 Zero-Shot Capabilities"
+	"Large Language Models (LLMs)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Large Language Models (LLMs)"
+	"GPT-3" [shape=ellipse]
+	"Large Language Models (LLMs)" -> "GPT-3"
+	"GPT-4" [shape=ellipse]
+	"Large Language Models (LLMs)" -> "GPT-4"
+	T5 [shape=ellipse]
+	"Large Language Models (LLMs)" -> T5
+	"Megatron-LM" [shape=ellipse]
+	"Large Language Models (LLMs)" -> "Megatron-LM"
+	BLOOM [shape=ellipse]
+	"Large Language Models (LLMs)" -> BLOOM
+	"Foundation Models" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Neural Networks (ANNs)" -> "Foundation Models"
+	"GPT-3" [shape=ellipse]
+	"Foundation Models" -> "GPT-3"
+	CLIP [shape=ellipse]
+	"Foundation Models" -> CLIP
+	"DALL·E" [shape=ellipse]
+	"Foundation Models" -> "DALL·E"
+	Flamingo [shape=ellipse]
+	"Foundation Models" -> Flamingo
+	"Probabilistic Models" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Probabilistic Models"
+	"Bayesian Networks" [shape=ellipse]
+	"Probabilistic Models" -> "Bayesian Networks"
+	"Markov Random Fields" [shape=ellipse]
+	"Probabilistic Models" -> "Markov Random Fields"
+	"Hidden Markov Models (HMMs)" [shape=ellipse]
+	"Probabilistic Models" -> "Hidden Markov Models (HMMs)"
+	"Conditional Random Fields (CRFs)" [shape=ellipse]
+	"Probabilistic Models" -> "Conditional Random Fields (CRFs)"
+	"Evolutionary Algorithms" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Evolutionary Algorithms"
+	"Genetic Algorithms" [shape=ellipse]
+	"Evolutionary Algorithms" -> "Genetic Algorithms"
+	"Genetic Programming" [shape=ellipse]
+	"Evolutionary Algorithms" -> "Genetic Programming"
+	"Evolution Strategies" [shape=ellipse]
+	"Evolutionary Algorithms" -> "Evolution Strategies"
+	"Differential Evolution" [shape=ellipse]
+	"Evolutionary Algorithms" -> "Differential Evolution"
+	"Swarm Intelligence" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Swarm Intelligence"
+	"Particle Swarm Optimization" [shape=ellipse]
+	"Swarm Intelligence" -> "Particle Swarm Optimization"
+	"Ant Colony Optimization" [shape=ellipse]
+	"Swarm Intelligence" -> "Ant Colony Optimization"
+	"Optimization Algorithms" [fillcolor=lightblue shape=box style=filled]
+	"Machine Learning (ML)" -> "Optimization Algorithms"
+	"Gradient Descent" [shape=ellipse]
+	"Optimization Algorithms" -> "Gradient Descent"
+	"Stochastic Gradient Descent (SGD)" [shape=ellipse]
+	"Optimization Algorithms" -> "Stochastic Gradient Descent (SGD)"
+	"Adam Optimizer" [shape=ellipse]
+	"Optimization Algorithms" -> "Adam Optimizer"
+	RMSprop [shape=ellipse]
+	"Optimization Algorithms" -> RMSprop
+	Adagrad [shape=ellipse]
+	"Optimization Algorithms" -> Adagrad
+	Adadelta [shape=ellipse]
+	"Optimization Algorithms" -> Adadelta
+	"Natural Language Processing (NLP)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Natural Language Processing (NLP)"
+	Tasks [fillcolor=lightblue shape=box style=filled]
+	"Natural Language Processing (NLP)" -> Tasks
+	"Language Modeling" [shape=ellipse]
+	Tasks -> "Language Modeling"
+	"Machine Translation" [shape=ellipse]
+	Tasks -> "Machine Translation"
+	"Sentiment Analysis" [shape=ellipse]
+	Tasks -> "Sentiment Analysis"
+	"Named Entity Recognition (NER)" [shape=ellipse]
+	Tasks -> "Named Entity Recognition (NER)"
+	"Part-of-Speech Tagging" [shape=ellipse]
+	Tasks -> "Part-of-Speech Tagging"
+	"Question Answering" [shape=ellipse]
+	Tasks -> "Question Answering"
+	"Text Summarization" [shape=ellipse]
+	Tasks -> "Text Summarization"
+	"Dialogue Systems" [shape=ellipse]
+	Tasks -> "Dialogue Systems"
+	"Text Classification" [shape=ellipse]
+	Tasks -> "Text Classification"
+	"Natural Language Generation" [shape=ellipse]
+	Tasks -> "Natural Language Generation"
+	"Semantic Parsing" [shape=ellipse]
+	Tasks -> "Semantic Parsing"
+	"Coreference Resolution" [shape=ellipse]
+	Tasks -> "Coreference Resolution"
+	Techniques [fillcolor=lightblue shape=box style=filled]
+	"Natural Language Processing (NLP)" -> Techniques
+	"Bag-of-Words Models" [shape=ellipse]
+	Techniques -> "Bag-of-Words Models"
+	"N-gram Models" [shape=ellipse]
+	Techniques -> "N-gram Models"
+	"Word Embeddings" [shape=ellipse]
+	Techniques -> "Word Embeddings"
+	"Recurrent Neural Networks" [shape=ellipse]
+	Techniques -> "Recurrent Neural Networks"
+	Transformers [shape=ellipse]
+	Techniques -> Transformers
+	"Pretrained Language Models" [fillcolor=lightblue shape=box style=filled]
+	"Natural Language Processing (NLP)" -> "Pretrained Language Models"
+	BERT [shape=ellipse]
+	"Pretrained Language Models" -> BERT
+	RoBERTa [shape=ellipse]
+	"Pretrained Language Models" -> RoBERTa
+	ALBERT [shape=ellipse]
+	"Pretrained Language Models" -> ALBERT
+	"GPT Series" [shape=ellipse]
+	"Pretrained Language Models" -> "GPT Series"
+	T5 [shape=ellipse]
+	"Pretrained Language Models" -> T5
+	XLNet [shape=ellipse]
+	"Pretrained Language Models" -> XLNet
+	ELECTRA [shape=ellipse]
+	"Pretrained Language Models" -> ELECTRA
+	"Megatron-LM" [shape=ellipse]
+	"Pretrained Language Models" -> "Megatron-LM"
+	BLOOM [shape=ellipse]
+	"Pretrained Language Models" -> BLOOM
+	"Conversational AI" [fillcolor=lightblue shape=box style=filled]
+	"Natural Language Processing (NLP)" -> "Conversational AI"
+	"Open-Domain Chatbots" [shape=ellipse]
+	"Conversational AI" -> "Open-Domain Chatbots"
+	"Task-Oriented Dialogue Systems" [shape=ellipse]
+	"Conversational AI" -> "Task-Oriented Dialogue Systems"
+	"Transfer Learning in Dialogue Systems" [shape=ellipse]
+	"Conversational AI" -> "Transfer Learning in Dialogue Systems"
+	"Multimodal NLP" [fillcolor=lightblue shape=box style=filled]
+	"Natural Language Processing (NLP)" -> "Multimodal NLP"
+	CLIP [shape=ellipse]
+	"Multimodal NLP" -> CLIP
+	VisualBERT [shape=ellipse]
+	"Multimodal NLP" -> VisualBERT
+	LXMERT [shape=ellipse]
+	"Multimodal NLP" -> LXMERT
+	"Cross-Lingual Models" [fillcolor=lightblue shape=box style=filled]
+	"Natural Language Processing (NLP)" -> "Cross-Lingual Models"
+	"XLM-R" [shape=ellipse]
+	"Cross-Lingual Models" -> "XLM-R"
+	mBERT [shape=ellipse]
+	"Cross-Lingual Models" -> mBERT
+	"Computer Vision" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Computer Vision"
+	Tasks [fillcolor=lightblue shape=box style=filled]
+	"Computer Vision" -> Tasks
+	"Image Classification" [shape=ellipse]
+	Tasks -> "Image Classification"
+	"Object Detection" [shape=ellipse]
+	Tasks -> "Object Detection"
+	"Image Segmentation" [shape=ellipse]
+	Tasks -> "Image Segmentation"
+	"Facial Recognition" [shape=ellipse]
+	Tasks -> "Facial Recognition"
+	"Activity Recognition" [shape=ellipse]
+	Tasks -> "Activity Recognition"
+	"Image Captioning" [shape=ellipse]
+	Tasks -> "Image Captioning"
+	"Video Analysis" [shape=ellipse]
+	Tasks -> "Video Analysis"
+	"3D Reconstruction" [shape=ellipse]
+	Tasks -> "3D Reconstruction"
+	"Depth Estimation" [shape=ellipse]
+	Tasks -> "Depth Estimation"
+	"Pose Estimation" [shape=ellipse]
+	Tasks -> "Pose Estimation"
+	Techniques [fillcolor=lightblue shape=box style=filled]
+	"Computer Vision" -> Techniques
+	"Convolutional Neural Networks" [shape=ellipse]
+	Techniques -> "Convolutional Neural Networks"
+	"Vision Transformers (ViT)" [shape=ellipse]
+	Techniques -> "Vision Transformers (ViT)"
+	"Generative Models" [shape=ellipse]
+	Techniques -> "Generative Models"
+	"Self-Supervised Learning" [shape=ellipse]
+	Techniques -> "Self-Supervised Learning"
+	"3D Computer Vision" [shape=ellipse]
+	Techniques -> "3D Computer Vision"
+	"Object Detection Models" [shape=ellipse]
+	Techniques -> "Object Detection Models"
+	"Image Segmentation Models" [shape=ellipse]
+	Techniques -> "Image Segmentation Models"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Computer Vision" -> Applications
+	"Autonomous Vehicles" [shape=ellipse]
+	Applications -> "Autonomous Vehicles"
+	"Medical Image Analysis" [shape=ellipse]
+	Applications -> "Medical Image Analysis"
+	"Augmented Reality (AR)" [shape=ellipse]
+	Applications -> "Augmented Reality (AR)"
+	"Remote Sensing" [shape=ellipse]
+	Applications -> "Remote Sensing"
+	"Robotics and Autonomous Systems" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Robotics and Autonomous Systems"
+	"Perception Systems" [fillcolor=lightblue shape=box style=filled]
+	"Robotics and Autonomous Systems" -> "Perception Systems"
+	"Sensor Fusion" [shape=ellipse]
+	"Perception Systems" -> "Sensor Fusion"
+	SLAM [shape=ellipse]
+	"Perception Systems" -> SLAM
+	"Object Recognition" [shape=ellipse]
+	"Perception Systems" -> "Object Recognition"
+	"Motion Planning and Control" [fillcolor=lightblue shape=box style=filled]
+	"Robotics and Autonomous Systems" -> "Motion Planning and Control"
+	"Path Planning Algorithms" [shape=ellipse]
+	"Motion Planning and Control" -> "Path Planning Algorithms"
+	"Control Systems" [shape=ellipse]
+	"Motion Planning and Control" -> "Control Systems"
+	"Manipulation and Grasping" [fillcolor=lightblue shape=box style=filled]
+	"Robotics and Autonomous Systems" -> "Manipulation and Grasping"
+	"Robotic Arm Control" [shape=ellipse]
+	"Manipulation and Grasping" -> "Robotic Arm Control"
+	"Grasp Planning" [shape=ellipse]
+	"Manipulation and Grasping" -> "Grasp Planning"
+	"Tactile Sensing" [shape=ellipse]
+	"Manipulation and Grasping" -> "Tactile Sensing"
+	"Learning in Robotics" [fillcolor=lightblue shape=box style=filled]
+	"Robotics and Autonomous Systems" -> "Learning in Robotics"
+	"Reinforcement Learning" [shape=ellipse]
+	"Learning in Robotics" -> "Reinforcement Learning"
+	"Imitation Learning" [shape=ellipse]
+	"Learning in Robotics" -> "Imitation Learning"
+	"Sim-to-Real Transfer Learning" [shape=ellipse]
+	"Learning in Robotics" -> "Sim-to-Real Transfer Learning"
+	"Human-Robot Interaction" [fillcolor=lightblue shape=box style=filled]
+	"Robotics and Autonomous Systems" -> "Human-Robot Interaction"
+	"Social Robotics" [shape=ellipse]
+	"Human-Robot Interaction" -> "Social Robotics"
+	"Natural Language Interaction" [shape=ellipse]
+	"Human-Robot Interaction" -> "Natural Language Interaction"
+	"Gesture Recognition" [shape=ellipse]
+	"Human-Robot Interaction" -> "Gesture Recognition"
+	"Assistive Robotics" [shape=ellipse]
+	"Human-Robot Interaction" -> "Assistive Robotics"
+	"Robotic Navigation" [fillcolor=lightblue shape=box style=filled]
+	"Robotics and Autonomous Systems" -> "Robotic Navigation"
+	"Obstacle Avoidance" [shape=ellipse]
+	"Robotic Navigation" -> "Obstacle Avoidance"
+	"Autonomous Exploration" [shape=ellipse]
+	"Robotic Navigation" -> "Autonomous Exploration"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Robotics and Autonomous Systems" -> Applications
+	"Industrial Automation" [shape=ellipse]
+	Applications -> "Industrial Automation"
+	"Service Robots" [shape=ellipse]
+	Applications -> "Service Robots"
+	"Medical Robotics" [shape=ellipse]
+	Applications -> "Medical Robotics"
+	"Space Robotics" [shape=ellipse]
+	Applications -> "Space Robotics"
+	"Speech and Audio Processing" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Speech and Audio Processing"
+	"Automatic Speech Recognition (ASR)" [fillcolor=lightblue shape=box style=filled]
+	"Speech and Audio Processing" -> "Automatic Speech Recognition (ASR)"
+	DeepSpeech [shape=ellipse]
+	"Automatic Speech Recognition (ASR)" -> DeepSpeech
+	"Transformer ASR Models" [shape=ellipse]
+	"Automatic Speech Recognition (ASR)" -> "Transformer ASR Models"
+	"Text-to-Speech (TTS)" [fillcolor=lightblue shape=box style=filled]
+	"Speech and Audio Processing" -> "Text-to-Speech (TTS)"
+	WaveNet [shape=ellipse]
+	"Text-to-Speech (TTS)" -> WaveNet
+	Tacotron [shape=ellipse]
+	"Text-to-Speech (TTS)" -> Tacotron
+	FastSpeech [shape=ellipse]
+	"Text-to-Speech (TTS)" -> FastSpeech
+	"Neural Voice Cloning" [shape=ellipse]
+	"Text-to-Speech (TTS)" -> "Neural Voice Cloning"
+	"Speaker Identification and Verification" [fillcolor=lightblue shape=box style=filled]
+	"Speech and Audio Processing" -> "Speaker Identification and Verification"
+	"Voice Biometrics" [shape=ellipse]
+	"Speaker Identification and Verification" -> "Voice Biometrics"
+	"Speaker Diarization" [shape=ellipse]
+	"Speaker Identification and Verification" -> "Speaker Diarization"
+	"Emotion Recognition" [fillcolor=lightblue shape=box style=filled]
+	"Speech and Audio Processing" -> "Emotion Recognition"
+	"Prosody Analysis" [shape=ellipse]
+	"Emotion Recognition" -> "Prosody Analysis"
+	"Affective Computing" [shape=ellipse]
+	"Emotion Recognition" -> "Affective Computing"
+	"Audio Classification" [fillcolor=lightblue shape=box style=filled]
+	"Speech and Audio Processing" -> "Audio Classification"
+	"Music Genre Classification" [shape=ellipse]
+	"Audio Classification" -> "Music Genre Classification"
+	"Environmental Sound Classification" [shape=ellipse]
+	"Audio Classification" -> "Environmental Sound Classification"
+	"Speech Enhancement" [fillcolor=lightblue shape=box style=filled]
+	"Speech and Audio Processing" -> "Speech Enhancement"
+	"Noise Reduction" [shape=ellipse]
+	"Speech Enhancement" -> "Noise Reduction"
+	"Speech Dereverberation" [shape=ellipse]
+	"Speech Enhancement" -> "Speech Dereverberation"
+	"Multilingual Speech Models" [fillcolor=lightblue shape=box style=filled]
+	"Speech and Audio Processing" -> "Multilingual Speech Models"
+	"Multilingual ASR" [shape=ellipse]
+	"Multilingual Speech Models" -> "Multilingual ASR"
+	"Code-Switching Recognition" [shape=ellipse]
+	"Multilingual Speech Models" -> "Code-Switching Recognition"
+	"Recommender Systems" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Recommender Systems"
+	"Collaborative Filtering" [fillcolor=lightblue shape=box style=filled]
+	"Recommender Systems" -> "Collaborative Filtering"
+	"User-Based Filtering" [shape=ellipse]
+	"Collaborative Filtering" -> "User-Based Filtering"
+	"Item-Based Filtering" [shape=ellipse]
+	"Collaborative Filtering" -> "Item-Based Filtering"
+	"Matrix Factorization" [shape=ellipse]
+	"Collaborative Filtering" -> "Matrix Factorization"
+	"Singular Value Decomposition (SVD)" [shape=ellipse]
+	"Collaborative Filtering" -> "Singular Value Decomposition (SVD)"
+	"Content-Based Filtering" [fillcolor=lightblue shape=box style=filled]
+	"Recommender Systems" -> "Content-Based Filtering"
+	"Feature Extraction" [shape=ellipse]
+	"Content-Based Filtering" -> "Feature Extraction"
+	"Similarity Measures" [shape=ellipse]
+	"Content-Based Filtering" -> "Similarity Measures"
+	"Hybrid Methods" [fillcolor=lightblue shape=box style=filled]
+	"Recommender Systems" -> "Hybrid Methods"
+	"Combining Collaborative and Content-Based Approaches" [shape=ellipse]
+	"Hybrid Methods" -> "Combining Collaborative and Content-Based Approaches"
+	"Deep Learning for Recommendations" [fillcolor=lightblue shape=box style=filled]
+	"Recommender Systems" -> "Deep Learning for Recommendations"
+	"Neural Collaborative Filtering" [shape=ellipse]
+	"Deep Learning for Recommendations" -> "Neural Collaborative Filtering"
+	"Autoencoders for Recommendations" [shape=ellipse]
+	"Deep Learning for Recommendations" -> "Autoencoders for Recommendations"
+	"Graph-Based Recommendations" [shape=ellipse]
+	"Deep Learning for Recommendations" -> "Graph-Based Recommendations"
+	"Context-Aware Recommendations" [fillcolor=lightblue shape=box style=filled]
+	"Recommender Systems" -> "Context-Aware Recommendations"
+	"Location-Based Services" [shape=ellipse]
+	"Context-Aware Recommendations" -> "Location-Based Services"
+	"Time-Aware Recommendations" [shape=ellipse]
+	"Context-Aware Recommendations" -> "Time-Aware Recommendations"
+	"Sequential and Session-Based Recommendations" [fillcolor=lightblue shape=box style=filled]
+	"Recommender Systems" -> "Sequential and Session-Based Recommendations"
+	"Recurrent Neural Networks" [shape=ellipse]
+	"Sequential and Session-Based Recommendations" -> "Recurrent Neural Networks"
+	Transformers [shape=ellipse]
+	"Sequential and Session-Based Recommendations" -> Transformers
+	"Privacy-Preserving Recommendations" [fillcolor=lightblue shape=box style=filled]
+	"Recommender Systems" -> "Privacy-Preserving Recommendations"
+	"Differential Privacy" [shape=ellipse]
+	"Privacy-Preserving Recommendations" -> "Differential Privacy"
+	"Federated Learning" [shape=ellipse]
+	"Privacy-Preserving Recommendations" -> "Federated Learning"
+	"Meta-Learning and AutoML" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Meta-Learning and AutoML"
+	"Meta-Learning" [fillcolor=lightblue shape=box style=filled]
+	"Meta-Learning and AutoML" -> "Meta-Learning"
+	"Model-Agnostic Meta-Learning (MAML)" [shape=ellipse]
+	"Meta-Learning" -> "Model-Agnostic Meta-Learning (MAML)"
+	"Meta-SGD" [shape=ellipse]
+	"Meta-Learning" -> "Meta-SGD"
+	"Reptile Algorithm" [shape=ellipse]
+	"Meta-Learning" -> "Reptile Algorithm"
+	"Prototypical Networks" [shape=ellipse]
+	"Meta-Learning" -> "Prototypical Networks"
+	"Relation Networks" [shape=ellipse]
+	"Meta-Learning" -> "Relation Networks"
+	"Matching Networks" [shape=ellipse]
+	"Meta-Learning" -> "Matching Networks"
+	"Automated Machine Learning (AutoML)" [fillcolor=lightblue shape=box style=filled]
+	"Meta-Learning and AutoML" -> "Automated Machine Learning (AutoML)"
+	"Hyperparameter Optimization" [shape=ellipse]
+	"Automated Machine Learning (AutoML)" -> "Hyperparameter Optimization"
+	"Neural Architecture Search (NAS)" [shape=ellipse]
+	"Automated Machine Learning (AutoML)" -> "Neural Architecture Search (NAS)"
+	"Transfer Learning" [fillcolor=lightblue shape=box style=filled]
+	"Meta-Learning and AutoML" -> "Transfer Learning"
+	"Fine-Tuning Pretrained Models" [shape=ellipse]
+	"Transfer Learning" -> "Fine-Tuning Pretrained Models"
+	"Domain Adaptation" [shape=ellipse]
+	"Transfer Learning" -> "Domain Adaptation"
+	"Multi-Task Learning" [shape=ellipse]
+	"Transfer Learning" -> "Multi-Task Learning"
+	"Explainable AI (XAI) and Fairness" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Explainable AI (XAI) and Fairness"
+	"Interpretable Models" [fillcolor=lightblue shape=box style=filled]
+	"Explainable AI (XAI) and Fairness" -> "Interpretable Models"
+	"Decision Trees" [shape=ellipse]
+	"Interpretable Models" -> "Decision Trees"
+	"Rule-Based Models" [shape=ellipse]
+	"Interpretable Models" -> "Rule-Based Models"
+	"Generalized Additive Models (GAMs)" [shape=ellipse]
+	"Interpretable Models" -> "Generalized Additive Models (GAMs)"
+	"Explainable Boosting Machines (EBMs)" [shape=ellipse]
+	"Interpretable Models" -> "Explainable Boosting Machines (EBMs)"
+	"Post-Hoc Explanation Methods" [fillcolor=lightblue shape=box style=filled]
+	"Explainable AI (XAI) and Fairness" -> "Post-Hoc Explanation Methods"
+	"Feature Importance" [shape=ellipse]
+	"Post-Hoc Explanation Methods" -> "Feature Importance"
+	LIME [shape=ellipse]
+	"Post-Hoc Explanation Methods" -> LIME
+	SHAP [shape=ellipse]
+	"Post-Hoc Explanation Methods" -> SHAP
+	"Counterfactual Explanations" [shape=ellipse]
+	"Post-Hoc Explanation Methods" -> "Counterfactual Explanations"
+	"Saliency Maps" [shape=ellipse]
+	"Post-Hoc Explanation Methods" -> "Saliency Maps"
+	"Causal Explainability" [fillcolor=lightblue shape=box style=filled]
+	"Explainable AI (XAI) and Fairness" -> "Causal Explainability"
+	"Structural Causal Models" [shape=ellipse]
+	"Causal Explainability" -> "Structural Causal Models"
+	"Do-Calculus" [shape=ellipse]
+	"Causal Explainability" -> "Do-Calculus"
+	"Fairness Metrics and Bias Mitigation" [fillcolor=lightblue shape=box style=filled]
+	"Explainable AI (XAI) and Fairness" -> "Fairness Metrics and Bias Mitigation"
+	"Demographic Parity" [shape=ellipse]
+	"Fairness Metrics and Bias Mitigation" -> "Demographic Parity"
+	"Equal Opportunity" [shape=ellipse]
+	"Fairness Metrics and Bias Mitigation" -> "Equal Opportunity"
+	"Adversarial Debiasing" [shape=ellipse]
+	"Fairness Metrics and Bias Mitigation" -> "Adversarial Debiasing"
+	"AI Safety and Alignment" [fillcolor=lightblue shape=box style=filled]
+	"Explainable AI (XAI) and Fairness" -> "AI Safety and Alignment"
+	"Robustness to Adversarial Attacks" [shape=ellipse]
+	"AI Safety and Alignment" -> "Robustness to Adversarial Attacks"
+	"Safe Reinforcement Learning" [shape=ellipse]
+	"AI Safety and Alignment" -> "Safe Reinforcement Learning"
+	"Value Alignment" [shape=ellipse]
+	"AI Safety and Alignment" -> "Value Alignment"
+	"AI Governance and Policy" [shape=ellipse]
+	"AI Safety and Alignment" -> "AI Governance and Policy"
+	"Ethical Frameworks" [fillcolor=lightblue shape=box style=filled]
+	"Explainable AI (XAI) and Fairness" -> "Ethical Frameworks"
+	Transparency [shape=ellipse]
+	"Ethical Frameworks" -> Transparency
+	Accountability [shape=ellipse]
+	"Ethical Frameworks" -> Accountability
+	"Privacy Considerations" [shape=ellipse]
+	"Ethical Frameworks" -> "Privacy Considerations"
+	"Optimization and Search Algorithms" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Optimization and Search Algorithms"
+	"Gradient-Based Optimization" [fillcolor=lightblue shape=box style=filled]
+	"Optimization and Search Algorithms" -> "Gradient-Based Optimization"
+	"Gradient Descent" [shape=ellipse]
+	"Gradient-Based Optimization" -> "Gradient Descent"
+	"Stochastic Gradient Descent (SGD)" [shape=ellipse]
+	"Gradient-Based Optimization" -> "Stochastic Gradient Descent (SGD)"
+	"Momentum Methods" [shape=ellipse]
+	"Gradient-Based Optimization" -> "Momentum Methods"
+	"Adaptive Learning Rate Methods" [shape=ellipse]
+	"Gradient-Based Optimization" -> "Adaptive Learning Rate Methods"
+	"Evolutionary Algorithms" [fillcolor=lightblue shape=box style=filled]
+	"Optimization and Search Algorithms" -> "Evolutionary Algorithms"
+	"Genetic Algorithms" [shape=ellipse]
+	"Evolutionary Algorithms" -> "Genetic Algorithms"
+	"Evolution Strategies" [shape=ellipse]
+	"Evolutionary Algorithms" -> "Evolution Strategies"
+	"Genetic Programming" [shape=ellipse]
+	"Evolutionary Algorithms" -> "Genetic Programming"
+	"Swarm Intelligence" [fillcolor=lightblue shape=box style=filled]
+	"Optimization and Search Algorithms" -> "Swarm Intelligence"
+	"Particle Swarm Optimization" [shape=ellipse]
+	"Swarm Intelligence" -> "Particle Swarm Optimization"
+	"Ant Colony Optimization" [shape=ellipse]
+	"Swarm Intelligence" -> "Ant Colony Optimization"
+	"Bayesian Optimization" [fillcolor=lightblue shape=box style=filled]
+	"Optimization and Search Algorithms" -> "Bayesian Optimization"
+	"Gaussian Processes" [shape=ellipse]
+	"Bayesian Optimization" -> "Gaussian Processes"
+	"Tree-structured Parzen Estimators (TPE)" [shape=ellipse]
+	"Bayesian Optimization" -> "Tree-structured Parzen Estimators (TPE)"
+	"Simulated Annealing" [fillcolor=lightblue shape=box style=filled]
+	"Optimization and Search Algorithms" -> "Simulated Annealing"
+	"Search Algorithms in AI" [fillcolor=lightblue shape=box style=filled]
+	"Optimization and Search Algorithms" -> "Search Algorithms in AI"
+	"Breadth-First Search (BFS)" [shape=ellipse]
+	"Search Algorithms in AI" -> "Breadth-First Search (BFS)"
+	"Depth-First Search (DFS)" [shape=ellipse]
+	"Search Algorithms in AI" -> "Depth-First Search (DFS)"
+	"A* Search" [shape=ellipse]
+	"Search Algorithms in AI" -> "A* Search"
+	"Dijkstra's Algorithm" [shape=ellipse]
+	"Search Algorithms in AI" -> "Dijkstra's Algorithm"
+	"Minimax Algorithm" [shape=ellipse]
+	"Search Algorithms in AI" -> "Minimax Algorithm"
+	"Alpha-Beta Pruning" [shape=ellipse]
+	"Search Algorithms in AI" -> "Alpha-Beta Pruning"
+	"Monte Carlo Tree Search (MCTS)" [shape=ellipse]
+	"Search Algorithms in AI" -> "Monte Carlo Tree Search (MCTS)"
+	"Edge AI and Embedded Systems" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Edge AI and Embedded Systems"
+	TinyML [fillcolor=lightblue shape=box style=filled]
+	"Edge AI and Embedded Systems" -> TinyML
+	"Model Compression Techniques" [shape=ellipse]
+	TinyML -> "Model Compression Techniques"
+	Quantization [shape=ellipse]
+	TinyML -> Quantization
+	Pruning [shape=ellipse]
+	TinyML -> Pruning
+	"Knowledge Distillation" [shape=ellipse]
+	TinyML -> "Knowledge Distillation"
+	"On-Device Machine Learning" [shape=ellipse]
+	TinyML -> "On-Device Machine Learning"
+	"Hardware for AI" [fillcolor=lightblue shape=box style=filled]
+	"Edge AI and Embedded Systems" -> "Hardware for AI"
+	GPUs [shape=ellipse]
+	"Hardware for AI" -> GPUs
+	TPUs [shape=ellipse]
+	"Hardware for AI" -> TPUs
+	FPGAs [shape=ellipse]
+	"Hardware for AI" -> FPGAs
+	ASICs [shape=ellipse]
+	"Hardware for AI" -> ASICs
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Edge AI and Embedded Systems" -> Applications
+	"IoT Devices" [shape=ellipse]
+	Applications -> "IoT Devices"
+	"Mobile AI Applications" [shape=ellipse]
+	Applications -> "Mobile AI Applications"
+	"Real-Time Inference" [shape=ellipse]
+	Applications -> "Real-Time Inference"
+	"Federated Learning and Privacy-Preserving AI" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Federated Learning and Privacy-Preserving AI"
+	"Federated Learning Frameworks" [fillcolor=lightblue shape=box style=filled]
+	"Federated Learning and Privacy-Preserving AI" -> "Federated Learning Frameworks"
+	"Federated Averaging (FedAvg)" [shape=ellipse]
+	"Federated Learning Frameworks" -> "Federated Averaging (FedAvg)"
+	"Secure Aggregation Protocols" [shape=ellipse]
+	"Federated Learning Frameworks" -> "Secure Aggregation Protocols"
+	"Differential Privacy Techniques" [shape=ellipse]
+	"Federated Learning Frameworks" -> "Differential Privacy Techniques"
+	"Split Learning" [fillcolor=lightblue shape=box style=filled]
+	"Federated Learning and Privacy-Preserving AI" -> "Split Learning"
+	"Encrypted Computation" [fillcolor=lightblue shape=box style=filled]
+	"Federated Learning and Privacy-Preserving AI" -> "Encrypted Computation"
+	"Homomorphic Encryption" [shape=ellipse]
+	"Encrypted Computation" -> "Homomorphic Encryption"
+	"Secure Multi-Party Computation" [shape=ellipse]
+	"Encrypted Computation" -> "Secure Multi-Party Computation"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Federated Learning and Privacy-Preserving AI" -> Applications
+	"Healthcare Data Analysis" [shape=ellipse]
+	Applications -> "Healthcare Data Analysis"
+	"Collaborative Learning Across Institutions" [shape=ellipse]
+	Applications -> "Collaborative Learning Across Institutions"
+	"Multimodal Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Multimodal Learning"
+	"Models Processing Multiple Data Types" [fillcolor=lightblue shape=box style=filled]
+	"Multimodal Learning" -> "Models Processing Multiple Data Types"
+	"Text and Image Integration" [shape=ellipse]
+	"Models Processing Multiple Data Types" -> "Text and Image Integration"
+	"Audio-Visual Speech Recognition" [shape=ellipse]
+	"Models Processing Multiple Data Types" -> "Audio-Visual Speech Recognition"
+	"Video Captioning" [shape=ellipse]
+	"Models Processing Multiple Data Types" -> "Video Captioning"
+	"Multimodal Transformers" [fillcolor=lightblue shape=box style=filled]
+	"Multimodal Learning" -> "Multimodal Transformers"
+	CLIP [shape=ellipse]
+	"Multimodal Transformers" -> CLIP
+	VisualBERT [shape=ellipse]
+	"Multimodal Transformers" -> VisualBERT
+	LXMERT [shape=ellipse]
+	"Multimodal Transformers" -> LXMERT
+	UNITER [shape=ellipse]
+	"Multimodal Transformers" -> UNITER
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Multimodal Learning" -> Applications
+	"Autonomous Driving" [shape=ellipse]
+	Applications -> "Autonomous Driving"
+	Robotics [shape=ellipse]
+	Applications -> Robotics
+	"Healthcare Diagnostics" [shape=ellipse]
+	Applications -> "Healthcare Diagnostics"
+	"Causal Inference and Causal Discovery" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Causal Inference and Causal Discovery"
+	"Causal Graphical Models" [fillcolor=lightblue shape=box style=filled]
+	"Causal Inference and Causal Discovery" -> "Causal Graphical Models"
+	"Structural Equation Modeling" [fillcolor=lightblue shape=box style=filled]
+	"Causal Inference and Causal Discovery" -> "Structural Equation Modeling"
+	"Do-Calculus" [fillcolor=lightblue shape=box style=filled]
+	"Causal Inference and Causal Discovery" -> "Do-Calculus"
+	"Counterfactual Reasoning" [fillcolor=lightblue shape=box style=filled]
+	"Causal Inference and Causal Discovery" -> "Counterfactual Reasoning"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Causal Inference and Causal Discovery" -> Applications
+	Epidemiology [shape=ellipse]
+	Applications -> Epidemiology
+	Economics [shape=ellipse]
+	Applications -> Economics
+	"Social Sciences" [shape=ellipse]
+	Applications -> "Social Sciences"
+	"Neuro-Symbolic AI" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Neuro-Symbolic AI"
+	"Combining Neural Networks with Symbolic Reasoning" [fillcolor=lightblue shape=box style=filled]
+	"Neuro-Symbolic AI" -> "Combining Neural Networks with Symbolic Reasoning"
+	"Logic Tensor Networks" [shape=ellipse]
+	"Combining Neural Networks with Symbolic Reasoning" -> "Logic Tensor Networks"
+	"Neural Theorem Provers" [shape=ellipse]
+	"Combining Neural Networks with Symbolic Reasoning" -> "Neural Theorem Provers"
+	"Neural Logic Machines" [shape=ellipse]
+	"Combining Neural Networks with Symbolic Reasoning" -> "Neural Logic Machines"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Neuro-Symbolic AI" -> Applications
+	"Knowledge Graph Reasoning" [shape=ellipse]
+	Applications -> "Knowledge Graph Reasoning"
+	"Program Synthesis" [shape=ellipse]
+	Applications -> "Program Synthesis"
+	"Commonsense Reasoning" [shape=ellipse]
+	Applications -> "Commonsense Reasoning"
+	"Continual Learning (Lifelong Learning)" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Continual Learning (Lifelong Learning)"
+	"Techniques to Learn Sequentially" [fillcolor=lightblue shape=box style=filled]
+	"Continual Learning (Lifelong Learning)" -> "Techniques to Learn Sequentially"
+	"Elastic Weight Consolidation (EWC)" [shape=ellipse]
+	"Techniques to Learn Sequentially" -> "Elastic Weight Consolidation (EWC)"
+	"Synaptic Intelligence (SI)" [shape=ellipse]
+	"Techniques to Learn Sequentially" -> "Synaptic Intelligence (SI)"
+	"Memory Replay Methods" [shape=ellipse]
+	"Techniques to Learn Sequentially" -> "Memory Replay Methods"
+	"Progressive Neural Networks" [shape=ellipse]
+	"Techniques to Learn Sequentially" -> "Progressive Neural Networks"
+	"Dynamically Expandable Networks" [shape=ellipse]
+	"Techniques to Learn Sequentially" -> "Dynamically Expandable Networks"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Continual Learning (Lifelong Learning)" -> Applications
+	Personalization [shape=ellipse]
+	Applications -> Personalization
+	Robotics [shape=ellipse]
+	Applications -> Robotics
+	"Adaptive Systems" [shape=ellipse]
+	Applications -> "Adaptive Systems"
+	"Self-Supervised Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Self-Supervised Learning"
+	"Learning Representations Without Labels" [fillcolor=lightblue shape=box style=filled]
+	"Self-Supervised Learning" -> "Learning Representations Without Labels"
+	"Contrastive Learning" [shape=ellipse]
+	"Learning Representations Without Labels" -> "Contrastive Learning"
+	"Masked Autoencoders" [shape=ellipse]
+	"Learning Representations Without Labels" -> "Masked Autoencoders"
+	"Predictive Coding" [shape=ellipse]
+	"Learning Representations Without Labels" -> "Predictive Coding"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Self-Supervised Learning" -> Applications
+	"Pretraining Models" [shape=ellipse]
+	Applications -> "Pretraining Models"
+	"Representation Learning" [shape=ellipse]
+	Applications -> "Representation Learning"
+	"Foundation Models" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Foundation Models"
+	"Large-Scale Pretrained Models Adaptable to Many Tasks" [fillcolor=lightblue shape=box style=filled]
+	"Foundation Models" -> "Large-Scale Pretrained Models Adaptable to Many Tasks"
+	"GPT-3" [shape=ellipse]
+	"Large-Scale Pretrained Models Adaptable to Many Tasks" -> "GPT-3"
+	"GPT-4" [shape=ellipse]
+	"Large-Scale Pretrained Models Adaptable to Many Tasks" -> "GPT-4"
+	T5 [shape=ellipse]
+	"Large-Scale Pretrained Models Adaptable to Many Tasks" -> T5
+	CLIP [shape=ellipse]
+	"Large-Scale Pretrained Models Adaptable to Many Tasks" -> CLIP
+	"DALL·E" [shape=ellipse]
+	"Large-Scale Pretrained Models Adaptable to Many Tasks" -> "DALL·E"
+	Flamingo [shape=ellipse]
+	"Large-Scale Pretrained Models Adaptable to Many Tasks" -> Flamingo
+	Gopher [shape=ellipse]
+	"Large-Scale Pretrained Models Adaptable to Many Tasks" -> Gopher
+	Properties [fillcolor=lightblue shape=box style=filled]
+	"Foundation Models" -> Properties
+	"Few-Shot Learning" [shape=ellipse]
+	Properties -> "Few-Shot Learning"
+	"Zero-Shot Learning" [shape=ellipse]
+	Properties -> "Zero-Shot Learning"
+	"Multitask Learning" [shape=ellipse]
+	Properties -> "Multitask Learning"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Foundation Models" -> Applications
+	"Language Understanding and Generation" [shape=ellipse]
+	Applications -> "Language Understanding and Generation"
+	"Image Generation" [shape=ellipse]
+	Applications -> "Image Generation"
+	"Code Generation" [shape=ellipse]
+	Applications -> "Code Generation"
+	"Ethics, Fairness, and AI Alignment" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Ethics, Fairness, and AI Alignment"
+	"AI Safety Research" [fillcolor=lightblue shape=box style=filled]
+	"Ethics, Fairness, and AI Alignment" -> "AI Safety Research"
+	Robustness [shape=ellipse]
+	"AI Safety Research" -> Robustness
+	Interpretability [shape=ellipse]
+	"AI Safety Research" -> Interpretability
+	"Prevention of Unintended Behaviors" [shape=ellipse]
+	"AI Safety Research" -> "Prevention of Unintended Behaviors"
+	"Fairness Metrics" [fillcolor=lightblue shape=box style=filled]
+	"Ethics, Fairness, and AI Alignment" -> "Fairness Metrics"
+	"Statistical Parity" [shape=ellipse]
+	"Fairness Metrics" -> "Statistical Parity"
+	"Equalized Odds" [shape=ellipse]
+	"Fairness Metrics" -> "Equalized Odds"
+	"Bias Mitigation Techniques" [fillcolor=lightblue shape=box style=filled]
+	"Ethics, Fairness, and AI Alignment" -> "Bias Mitigation Techniques"
+	"Preprocessing Methods" [shape=ellipse]
+	"Bias Mitigation Techniques" -> "Preprocessing Methods"
+	"In-Processing Methods" [shape=ellipse]
+	"Bias Mitigation Techniques" -> "In-Processing Methods"
+	"Post-Processing Methods" [shape=ellipse]
+	"Bias Mitigation Techniques" -> "Post-Processing Methods"
+	"AI Governance and Policy" [fillcolor=lightblue shape=box style=filled]
+	"Ethics, Fairness, and AI Alignment" -> "AI Governance and Policy"
+	"Regulatory Frameworks" [shape=ellipse]
+	"AI Governance and Policy" -> "Regulatory Frameworks"
+	"Ethical Guidelines" [shape=ellipse]
+	"AI Governance and Policy" -> "Ethical Guidelines"
+	"AI and Society" [fillcolor=lightblue shape=box style=filled]
+	"Ethics, Fairness, and AI Alignment" -> "AI and Society"
+	"Impact on Employment" [shape=ellipse]
+	"AI and Society" -> "Impact on Employment"
+	"Privacy Concerns" [shape=ellipse]
+	"AI and Society" -> "Privacy Concerns"
+	"AI for Science and Medicine" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "AI for Science and Medicine"
+	"Protein Folding" [fillcolor=lightblue shape=box style=filled]
+	"AI for Science and Medicine" -> "Protein Folding"
+	AlphaFold [shape=ellipse]
+	"Protein Folding" -> AlphaFold
+	"Drug Discovery" [fillcolor=lightblue shape=box style=filled]
+	"AI for Science and Medicine" -> "Drug Discovery"
+	"Virtual Screening" [shape=ellipse]
+	"Drug Discovery" -> "Virtual Screening"
+	"Molecular Property Prediction" [shape=ellipse]
+	"Drug Discovery" -> "Molecular Property Prediction"
+	"Climate Modeling" [fillcolor=lightblue shape=box style=filled]
+	"AI for Science and Medicine" -> "Climate Modeling"
+	"Weather Prediction" [shape=ellipse]
+	"Climate Modeling" -> "Weather Prediction"
+	"Environmental Monitoring" [shape=ellipse]
+	"Climate Modeling" -> "Environmental Monitoring"
+	"Materials Science" [fillcolor=lightblue shape=box style=filled]
+	"AI for Science and Medicine" -> "Materials Science"
+	"Materials Design" [shape=ellipse]
+	"Materials Science" -> "Materials Design"
+	"Simulation Acceleration" [shape=ellipse]
+	"Materials Science" -> "Simulation Acceleration"
+	"Human-Centered AI" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Human-Centered AI"
+	"User Experience (UX) in AI Systems" [fillcolor=lightblue shape=box style=filled]
+	"Human-Centered AI" -> "User Experience (UX) in AI Systems"
+	"Trust and Transparency" [fillcolor=lightblue shape=box style=filled]
+	"Human-Centered AI" -> "Trust and Transparency"
+	"Collaborative AI" [fillcolor=lightblue shape=box style=filled]
+	"Human-Centered AI" -> "Collaborative AI"
+	"Human-in-the-Loop Learning" [shape=ellipse]
+	"Collaborative AI" -> "Human-in-the-Loop Learning"
+	"Interactive Machine Learning" [shape=ellipse]
+	"Collaborative AI" -> "Interactive Machine Learning"
+	"AI for Accessibility" [fillcolor=lightblue shape=box style=filled]
+	"Human-Centered AI" -> "AI for Accessibility"
+	"Assistive Technologies" [shape=ellipse]
+	"AI for Accessibility" -> "Assistive Technologies"
+	"Adaptive Interfaces" [shape=ellipse]
+	"AI for Accessibility" -> "Adaptive Interfaces"
+	"Quantum Machine Learning" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Quantum Machine Learning"
+	"Quantum Computing Principles" [fillcolor=lightblue shape=box style=filled]
+	"Quantum Machine Learning" -> "Quantum Computing Principles"
+	"Quantum Algorithms for ML" [fillcolor=lightblue shape=box style=filled]
+	"Quantum Machine Learning" -> "Quantum Algorithms for ML"
+	"Quantum Neural Networks" [shape=ellipse]
+	"Quantum Algorithms for ML" -> "Quantum Neural Networks"
+	"Quantum Support Vector Machines" [shape=ellipse]
+	"Quantum Algorithms for ML" -> "Quantum Support Vector Machines"
+	"Variational Quantum Circuits" [shape=ellipse]
+	"Quantum Algorithms for ML" -> "Variational Quantum Circuits"
+	Applications [fillcolor=lightblue shape=box style=filled]
+	"Quantum Machine Learning" -> Applications
+	"Optimization Problems" [shape=ellipse]
+	Applications -> "Optimization Problems"
+	Cryptography [shape=ellipse]
+	Applications -> Cryptography
+	"Material Simulation" [shape=ellipse]
+	Applications -> "Material Simulation"
+	"Cognitive Computing and Affective Computing" [fillcolor=lightblue shape=box style=filled]
+	"Artificial Intelligence (AI)" -> "Cognitive Computing and Affective Computing"
+	"Cognitive Computing" [fillcolor=lightblue shape=box style=filled]
+	"Cognitive Computing and Affective Computing" -> "Cognitive Computing"
+	"IBM Watson" [shape=ellipse]
+	"Cognitive Computing" -> "IBM Watson"
+	"Knowledge Representation" [shape=ellipse]
+	"Cognitive Computing" -> "Knowledge Representation"
+	"Affective Computing" [fillcolor=lightblue shape=box style=filled]
+	"Cognitive Computing and Affective Computing" -> "Affective Computing"
+	"Emotion Recognition" [shape=ellipse]
+	"Affective Computing" -> "Emotion Recognition"
+	"Sentiment Analysis" [shape=ellipse]
+	"Affective Computing" -> "Sentiment Analysis"
+	"Human-Computer Interaction" [shape=ellipse]
+	"Affective Computing" -> "Human-Computer Interaction"
+}
